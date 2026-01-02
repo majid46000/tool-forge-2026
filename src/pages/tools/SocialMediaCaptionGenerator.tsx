@@ -13,30 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-
-const captionTemplates = {
-  instagram: [
-    "✨ {topic} vibes only! Double tap if you agree 💫 #fyp #viral",
-    "POV: You just discovered the magic of {topic} 🪄 Save this for later!",
-    "This is your sign to embrace {topic} today 💖 What do you think?",
-    "Plot twist: {topic} just changed everything 🎬 #trending #2026",
-  ],
-  twitter: [
-    "Hot take: {topic} is the future and here's why 🧵",
-    "{topic} hits different in 2026 🔥 RT if you agree",
-    "Unpopular opinion: Everyone should know about {topic}",
-    "The secret to success? {topic}. That's it. That's the tweet.",
-  ],
-  linkedin: [
-    "I've been thinking a lot about {topic} lately. Here's what I've learned:\n\n✅ It transforms how we work\n✅ It creates new opportunities\n✅ It's essential for 2026\n\nWhat's your take?",
-    "3 things I wish I knew about {topic} earlier:\n\n1. It's more accessible than you think\n2. The ROI is incredible\n3. Now is the perfect time to start\n\n#ProfessionalDevelopment",
-  ],
-  facebook: [
-    "Just discovered something amazing about {topic}! 🤩 Who else is excited about this?",
-    "Can we talk about {topic} for a second? This is a game-changer! 🙌",
-    "Big news: {topic} is trending and I'm here for it! Share your thoughts below 👇",
-  ],
-};
+import { supabase } from "@/integrations/supabase/client";
 
 const platformIcons = {
   instagram: Instagram,
@@ -63,15 +40,54 @@ export default function SocialMediaCaptionGenerator() {
     }
 
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    setCaptions([]);
 
-    const templates = captionTemplates[platform as keyof typeof captionTemplates];
-    const generated = templates.map((template) =>
-      template.replace(/{topic}/g, topic)
-    );
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-ai-content", {
+        body: { type: "caption", prompt: topic, platform },
+      });
 
-    setCaptions(generated);
-    setLoading(false);
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
+      // Parse the captions from the response
+      const content = data.content as string;
+      const parsedCaptions = content
+        .split(/\n+/)
+        .filter((line: string) => line.trim())
+        .map((line: string) => line.replace(/^\d+[\.\)]\s*/, "").trim())
+        .filter((line: string) => line.length > 0);
+
+      setCaptions(parsedCaptions);
+      toast({
+        title: "Captions generated!",
+        description: `${parsedCaptions.length} captions created for ${platform}.`,
+      });
+    } catch (error) {
+      console.error("Generation error:", error);
+      const message = error instanceof Error ? error.message : "Failed to generate captions";
+      
+      if (message.includes("Daily limit")) {
+        toast({
+          title: "Daily limit reached",
+          description: "Please try again tomorrow.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Generation failed",
+          description: message,
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyCaption = (caption: string) => {
@@ -88,7 +104,7 @@ export default function SocialMediaCaptionGenerator() {
     <Layout>
       <ToolPageWrapper
         title="Social Media Caption Generator – Generate Captions Instantly"
-        description="Generate engaging captions for social media posts automatically."
+        description="Generate engaging captions for social media posts automatically using AI."
         icon={Type}
       >
         <InstructionsCard
@@ -104,10 +120,10 @@ export default function SocialMediaCaptionGenerator() {
             "Test different styles to see what works",
           ]}
           features={[
+            "AI-powered caption generation",
             "Platform-specific formatting",
             "Engaging call-to-actions",
             "Trending phrases for 2026",
-            "Multiple caption options",
           ]}
         />
 
