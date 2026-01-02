@@ -5,46 +5,11 @@ import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-
-const sampleBlogPost = `# Complete Guide to [Your Topic] in 2026
-
-## Introduction
-
-In today's fast-paced digital world, understanding [your topic] has become essential for success. This comprehensive guide will walk you through everything you need to know.
-
-## What is [Your Topic]?
-
-[Your topic] refers to the practice of... [detailed explanation would go here based on the actual topic provided].
-
-## Key Benefits
-
-1. **Increased Efficiency** - Save time and resources with proven strategies
-2. **Better Results** - Achieve measurable improvements in your outcomes
-3. **Competitive Advantage** - Stay ahead of the curve in your industry
-
-## How to Get Started
-
-### Step 1: Research and Planning
-Begin by understanding your current situation and setting clear goals...
-
-### Step 2: Implementation
-Once you have a plan, start implementing the strategies...
-
-### Step 3: Measure and Optimize
-Track your progress and make adjustments as needed...
-
-## Conclusion
-
-[Your topic] is a valuable skill that can transform your approach to... Start implementing these strategies today and see the difference!
-
----
-*This is sample output. Connect your OpenAI API key for AI-generated, SEO-optimized blog posts.*`;
+import { supabase } from "@/integrations/supabase/client";
 
 export default function AIBlogWriter() {
   const [topic, setTopic] = useState("");
-  const [apiKey, setApiKey] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -60,50 +25,46 @@ export default function AIBlogWriter() {
     }
 
     setLoading(true);
+    setOutput("");
 
-    if (apiKey.trim()) {
-      try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [
-              {
-                role: "system",
-                content: "You are an expert blog writer and SEO specialist. Create comprehensive, engaging, and SEO-optimized blog posts with proper headings, subheadings, and formatting in markdown.",
-              },
-              {
-                role: "user",
-                content: `Write a complete, SEO-optimized blog post about: ${topic}. Include an engaging introduction, multiple sections with h2 and h3 headings, bullet points where appropriate, and a compelling conclusion.`,
-              },
-            ],
-            max_tokens: 2000,
-          }),
-        });
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-ai-content", {
+        body: { type: "blog", prompt: topic },
+      });
 
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error.message);
-        }
-        setOutput(data.choices[0].message.content);
-      } catch (error) {
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
+      setOutput(data.content);
+      toast({
+        title: "Blog post generated!",
+        description: "Your blog post has been created successfully.",
+      });
+    } catch (error) {
+      console.error("Generation error:", error);
+      const message = error instanceof Error ? error.message : "Failed to generate content";
+      
+      if (message.includes("Daily limit")) {
         toast({
-          title: "API Error",
-          description: error instanceof Error ? error.message : "Failed to generate content",
+          title: "Daily limit reached",
+          description: "Please try again tomorrow.",
           variant: "destructive",
         });
-        setOutput(sampleBlogPost.replace(/\[Your Topic\]/g, topic).replace(/\[your topic\]/g, topic.toLowerCase()));
+      } else {
+        toast({
+          title: "Generation failed",
+          description: message,
+          variant: "destructive",
+        });
       }
-    } else {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setOutput(sampleBlogPost.replace(/\[Your Topic\]/g, topic).replace(/\[your topic\]/g, topic.toLowerCase()));
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleCopy = () => {
@@ -124,7 +85,6 @@ export default function AIBlogWriter() {
         <InstructionsCard
           steps={[
             "Enter your blog topic or title idea",
-            "Add your OpenAI API key (optional for demo)",
             "Click Generate to create your blog post",
             "Review, edit, and copy your content",
           ]}
@@ -153,29 +113,6 @@ export default function AIBlogWriter() {
                 onChange={(e) => setTopic(e.target.value)}
                 className="min-h-20"
               />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                OpenAI API Key (Optional)
-              </label>
-              <Input
-                type="password"
-                placeholder="sk-..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Leave empty for demo output. Get your API key at{" "}
-                <a
-                  href="https://platform.openai.com/api-keys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline"
-                >
-                  platform.openai.com
-                </a>
-              </p>
             </div>
 
             <Button onClick={handleGenerate} disabled={loading} className="w-full md:w-auto">

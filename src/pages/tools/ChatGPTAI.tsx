@@ -5,29 +5,11 @@ import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-
-const sampleOutput = `# The Future of AI in Content Creation
-
-Artificial Intelligence is revolutionizing how we create content in 2026. Here's what you need to know about leveraging AI for your creative projects.
-
-## Key Benefits of AI Content Generation
-
-1. **Speed**: Generate high-quality content in seconds
-2. **Consistency**: Maintain a consistent tone across all materials
-3. **Scalability**: Produce more content without increasing costs
-4. **Creativity**: Get fresh ideas and overcome writer's block
-
-## Getting Started
-
-To begin using AI for content creation, start with a clear prompt that includes your topic, target audience, and desired tone. The more specific you are, the better results you'll achieve.
-
-*This is sample output. Connect your OpenAI API key for real AI-generated content.*`;
+import { supabase } from "@/integrations/supabase/client";
 
 export default function ChatGPTAI() {
   const [prompt, setPrompt] = useState("");
-  const [apiKey, setApiKey] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -43,47 +25,46 @@ export default function ChatGPTAI() {
     }
 
     setLoading(true);
+    setOutput("");
 
-    if (apiKey.trim()) {
-      try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [
-              {
-                role: "system",
-                content: "You are a professional content writer. Create high-quality, engaging content based on the user's prompt.",
-              },
-              { role: "user", content: prompt },
-            ],
-            max_tokens: 1000,
-          }),
-        });
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-ai-content", {
+        body: { type: "article", prompt },
+      });
 
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error.message);
-        }
-        setOutput(data.choices[0].message.content);
-      } catch (error) {
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data?.error) {
+        throw new Error(data.error);
+      }
+
+      setOutput(data.content);
+      toast({
+        title: "Content generated!",
+        description: "Your article has been created successfully.",
+      });
+    } catch (error) {
+      console.error("Generation error:", error);
+      const message = error instanceof Error ? error.message : "Failed to generate content";
+      
+      if (message.includes("Daily limit")) {
         toast({
-          title: "API Error",
-          description: error instanceof Error ? error.message : "Failed to generate content",
+          title: "Daily limit reached",
+          description: "Please try again tomorrow.",
           variant: "destructive",
         });
-        setOutput(sampleOutput);
+      } else {
+        toast({
+          title: "Generation failed",
+          description: message,
+          variant: "destructive",
+        });
       }
-    } else {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setOutput(sampleOutput);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const handleCopy = () => {
@@ -97,14 +78,13 @@ export default function ChatGPTAI() {
   return (
     <Layout>
       <ToolPageWrapper
-        title="ChatGPT AI – Generate Articles & Text Instantly"
-        description="Generate high-quality articles and text instantly using ChatGPT AI. Perfect for blogs, social media, and marketing content."
+        title="AI Text Generator – Generate Articles & Text Instantly"
+        description="Generate high-quality articles and text instantly using AI. Perfect for blogs, social media, and marketing content."
         icon={MessageSquare}
       >
         <InstructionsCard
           steps={[
             "Enter your topic or keyword in the prompt field",
-            "Enter your OpenAI API key (optional for demo)",
             "Click Generate to create your content",
             "Copy or export the generated text",
           ]}
@@ -133,29 +113,6 @@ export default function ChatGPTAI() {
                 onChange={(e) => setPrompt(e.target.value)}
                 className="min-h-32"
               />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                OpenAI API Key (Optional)
-              </label>
-              <Input
-                type="password"
-                placeholder="sk-..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Leave empty for demo output. Get your API key at{" "}
-                <a
-                  href="https://platform.openai.com/api-keys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline"
-                >
-                  platform.openai.com
-                </a>
-              </p>
             </div>
 
             <Button onClick={handleGenerate} disabled={loading} className="w-full md:w-auto">
