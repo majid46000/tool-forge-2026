@@ -14,13 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      usage_stats: {
+        Row: {
+          created_at: string
+          id: string
+          stat_key: string
+          stat_value: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          stat_key: string
+          stat_value?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          stat_key?: string
+          stat_value?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_stat: {
+        Args: { increment_by?: number; key_name: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
