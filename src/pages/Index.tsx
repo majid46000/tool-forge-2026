@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { ToolCard } from "@/components/shared/ToolCard";
 import { Button } from "@/components/ui/button";
+import { AdNativeBanner, AdRectangle } from "@/components/ads";
 import {
   MessageSquare,
   Video,
@@ -184,6 +185,10 @@ const Index = () => {
               </div>
             ))}
           </div>
+          
+          {/* Ads section */}
+          <AdNativeBanner />
+          <AdRectangle />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { Breadcrumb } from "./Breadcrumb";
+import { AdNativeBanner, AdRectangle } from "../ads";
 
 interface ToolPageWrapperProps {
   title: string;
@@ -25,6 +26,10 @@ export function ToolPageWrapper({ title, description, icon: Icon, children }: To
         </div>
 
         {children}
+
+        {/* Ads below tool content */}
+        <AdNativeBanner />
+        <AdRectangle />
       </div>
     </div>
   );
