@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-export function AdSocialBar() {
+export function AdPopunder() {
   useEffect(() => {
-    const scriptId = "adsterra-social-bar";
+    const scriptId = "adsterra-popunder";
     
     if (document.getElementById(scriptId)) {
       return;
@@ -10,7 +10,7 @@ export function AdSocialBar() {
 
     const script = document.createElement("script");
     script.id = scriptId;
-    script.src = "https://pl28394176.effectivegatecpm.com/17/da/7e/17da7eef544e8d5c8f5daf9fcd5a0f45.js";
+    script.src = "https://pl28394261.effectivegatecpm.com/c3/7e/9e/c37e9e933c893dbb35ee78f6dd1076c7.js";
     script.async = true;
     document.body.appendChild(script);
 
