@@ -3,6 +3,7 @@ import { TrendingUp, Search, Loader2, ExternalLink, Play, ThumbsUp } from "lucid
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -37,6 +38,22 @@ const mockTrendingContent: Record<string, TrendingContent[]> = {
     { title: "Best Gadgets of 2026 So Far", platform: "YouTube", views: "11M", likes: "1.4M", description: "Tech review compilation" },
     { title: "This App is a Game Changer", platform: "TikTok", views: "5.8M", likes: "940K", description: "Productivity app review" },
   ],
+};
+
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Trending Content Finder 2026",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free trending content finder 2026. Discover viral TikTok and YouTube content to boost your social media strategy.",
+  "url": "https://toolhub2026.com/trending-content-finder"
 };
 
 export default function TrendingContentFinder() {
@@ -74,9 +91,16 @@ export default function TrendingContentFinder() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Free Trending Content Finder 2026 – Viral TikTok & YouTube Ideas"
+        description="Discover trending TikTok and YouTube content for free. Find viral video ideas to boost your social media strategy in 2026."
+        canonical="/trending-content-finder"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="Trending Content Finder – Find Viral TikTok & YouTube Content"
-        description="Discover trending content and viral videos to boost your social media strategy."
+        title="Free Trending Content Finder 2026"
+        description="Discover viral TikTok and YouTube content to boost your social media strategy. Find trending ideas for free."
         icon={TrendingUp}
       >
         <InstructionsCard
@@ -91,9 +115,9 @@ export default function TrendingContentFinder() {
             "Act fast on emerging trends",
           ]}
           features={[
+            "Free trending content finder 2026",
             "TikTok trend discovery",
             "YouTube viral content",
-            "Real-time trend analysis",
             "Content strategy insights",
           ]}
         />
@@ -101,26 +125,31 @@ export default function TrendingContentFinder() {
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Content Topic
               </label>
               <Input
+                id="topic-input"
                 placeholder="e.g., fitness, cooking, tech, fashion..."
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && findTrending()}
+                aria-describedby="topic-help"
               />
+              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+                Enter your niche to find trending content ideas
+              </p>
             </div>
 
             <Button onClick={findTrending} disabled={loading}>
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                   Searching Trends...
                 </>
               ) : (
                 <>
-                  <Search className="h-4 w-4" />
+                  <Search className="h-4 w-4" aria-hidden="true" />
                   Find Trending Content
                 </>
               )}
@@ -129,12 +158,12 @@ export default function TrendingContentFinder() {
 
           {content.length > 0 && (
             <div className="mt-6 pt-6 border-t border-border">
-              <h3 className="font-semibold text-foreground mb-4">
+              <h2 className="font-semibold text-foreground mb-4">
                 Trending Content ({content.length} results)
-              </h3>
+              </h2>
               <div className="space-y-4">
                 {content.map((item, index) => (
-                  <div
+                  <article
                     key={index}
                     className="bg-secondary rounded-lg p-4 hover:bg-secondary/80 transition-colors"
                   >
@@ -151,24 +180,24 @@ export default function TrendingContentFinder() {
                             {item.platform}
                           </span>
                         </div>
-                        <h4 className="font-medium text-foreground mb-1">{item.title}</h4>
+                        <h3 className="font-medium text-foreground mb-1">{item.title}</h3>
                         <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
                         <div className="flex items-center gap-4 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
-                            <Play className="h-3 w-3" />
+                            <Play className="h-3 w-3" aria-hidden="true" />
                             {item.views} views
                           </span>
                           <span className="flex items-center gap-1">
-                            <ThumbsUp className="h-3 w-3" />
+                            <ThumbsUp className="h-3 w-3" aria-hidden="true" />
                             {item.likes} likes
                           </span>
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="shrink-0">
-                        <ExternalLink className="h-4 w-4" />
+                      <Button variant="ghost" size="sm" className="shrink-0" aria-label="View content">
+                        <ExternalLink className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
 
@@ -178,6 +207,16 @@ export default function TrendingContentFinder() {
             </div>
           )}
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Best Free Trending Content Finder 2026
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Discover viral TikTok and YouTube content to inspire your social media strategy. Our free tool helps you find trending topics and popular video formats in 2026.
+          </p>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );
