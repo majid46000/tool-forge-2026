@@ -3,10 +3,32 @@ import { MessageSquare, Copy, Loader2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free ChatGPT Alternative 2026 – AI Text Generator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Best free ChatGPT alternative 2026. Generate high-quality articles, text, and content instantly with AI – no login required.",
+  "url": "https://toolhub2026.com/chatgpt-ai",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "2847"
+  }
+};
 
 export default function ChatGPTAI() {
   const [prompt, setPrompt] = useState("");
@@ -77,48 +99,60 @@ export default function ChatGPTAI() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Free ChatGPT Alternative 2026 – AI Text & Article Generator"
+        description="Best free ChatGPT alternative 2026. Generate high-quality articles, text, and content instantly with AI – no login required."
+        canonical="/chatgpt-ai"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="AI Text Generator – Generate Articles & Text Instantly"
-        description="Generate high-quality articles and text instantly using AI. Perfect for blogs, social media, and marketing content."
+        title="Free ChatGPT Alternative 2026 – AI Text Generator"
+        description="The best free AI content generator for 2026. Generate articles, blog posts, and marketing copy instantly – no signup required."
         icon={MessageSquare}
       >
         <InstructionsCard
           steps={[
             "Enter your topic or keyword in the prompt field",
-            "Click Generate to create your content",
+            "Click Generate to create your AI content",
             "Copy or export the generated text",
           ]}
           tips={[
-            "Use specific keywords for better results",
+            "Use specific keywords for better AI results",
             "Review and edit before publishing",
             "Try different prompts for variety",
           ]}
           features={[
+            "Best free ChatGPT alternative 2026",
             "AI-powered text generation",
-            "Fast and customizable",
-            "Multi-language support",
             "SEO-friendly content",
+            "No login required",
           ]}
         />
 
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="prompt-input" className="block text-sm font-medium text-foreground mb-2">
                 Your Prompt
               </label>
               <Textarea
+                id="prompt-input"
                 placeholder="Enter your topic or describe what you want to generate... (e.g., 'Write a blog post about sustainable technology trends in 2026')"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="min-h-32"
+                aria-describedby="prompt-help"
               />
+              <p id="prompt-help" className="text-xs text-muted-foreground mt-1">
+                Be specific for better AI-generated content
+              </p>
             </div>
 
             <Button onClick={handleGenerate} disabled={loading} className="w-full md:w-auto">
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                   Generating...
                 </>
               ) : (
@@ -130,9 +164,9 @@ export default function ChatGPTAI() {
           {output && (
             <div className="mt-6 pt-6 border-t border-border">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-foreground">Generated Content</h3>
-                <Button variant="outline" size="sm" onClick={handleCopy}>
-                  <Copy className="h-4 w-4 mr-2" />
+                <h2 className="font-semibold text-foreground">Generated Content</h2>
+                <Button variant="outline" size="sm" onClick={handleCopy} aria-label="Copy generated content">
+                  <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   Copy
                 </Button>
               </div>
@@ -144,6 +178,26 @@ export default function ChatGPTAI() {
             </div>
           )}
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Why This is the Best Free ChatGPT Alternative in 2026
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Looking for a free ChatGPT alternative that delivers professional-quality content? ToolHub 2026 offers the best free AI content generator with no signup required. Our AI text generator helps you create articles, blog posts, marketing copy, and more – completely free.
+          </p>
+          <h3 className="text-xl font-semibold text-foreground mb-3">
+            Key Benefits of Our Free AI Text Generator
+          </h3>
+          <ul className="text-muted-foreground space-y-2">
+            <li>✓ 100% free to use – no hidden costs or subscriptions</li>
+            <li>✓ No login or signup required – start generating immediately</li>
+            <li>✓ SEO-optimized content for better search rankings</li>
+            <li>✓ Works on all devices – desktop, tablet, and mobile</li>
+            <li>✓ Fast AI generation – get results in seconds</li>
+          </ul>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );

@@ -3,6 +3,7 @@ import { Type, Copy, Loader2, Instagram, Twitter, Facebook, Linkedin } from "luc
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,6 +21,22 @@ const platformIcons = {
   twitter: Twitter,
   linkedin: Linkedin,
   facebook: Facebook,
+};
+
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free AI Caption Generator 2026",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free AI caption generator for Instagram, TikTok, Twitter & more. Create engaging social media captions in 2026.",
+  "url": "https://toolhub2026.com/social-media-caption-generator"
 };
 
 export default function SocialMediaCaptionGenerator() {
@@ -55,7 +72,6 @@ export default function SocialMediaCaptionGenerator() {
         throw new Error(data.error);
       }
 
-      // Parse the captions from the response
       const content = data.content as string;
       const parsedCaptions = content
         .split(/\n+/)
@@ -102,16 +118,23 @@ export default function SocialMediaCaptionGenerator() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Free AI Caption Generator 2026 – Instagram, TikTok & Social Media"
+        description="Free AI caption generator for Instagram, TikTok, Twitter & LinkedIn. Create engaging social media captions instantly in 2026."
+        canonical="/social-media-caption-generator"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="Social Media Caption Generator – Generate Captions Instantly"
-        description="Generate engaging captions for social media posts automatically using AI."
+        title="Free AI Caption Generator 2026"
+        description="Generate engaging social media captions for Instagram, TikTok, Twitter & LinkedIn using AI – 100% free."
         icon={Type}
       >
         <InstructionsCard
           steps={[
             "Enter your content topic or theme",
-            "Select your target platform",
-            "Click Generate to create captions",
+            "Select your target social media platform",
+            "Click Generate to create AI captions",
             "Copy your favorite caption",
           ]}
           tips={[
@@ -120,33 +143,38 @@ export default function SocialMediaCaptionGenerator() {
             "Test different styles to see what works",
           ]}
           features={[
-            "AI-powered caption generation",
+            "Free AI caption generator 2026",
             "Platform-specific formatting",
             "Engaging call-to-actions",
-            "Trending phrases for 2026",
+            "Works for all social platforms",
           ]}
         />
 
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Content Topic
               </label>
               <Input
+                id="topic-input"
                 placeholder="e.g., morning routine, productivity tips, travel adventures..."
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateCaptions()}
+                aria-describedby="topic-help"
               />
+              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+                Describe your post to generate engaging captions
+              </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="platform-select" className="block text-sm font-medium text-foreground mb-2">
                 Platform
               </label>
               <Select value={platform} onValueChange={setPlatform}>
-                <SelectTrigger className="w-full md:w-48">
+                <SelectTrigger id="platform-select" className="w-full md:w-48">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -161,7 +189,7 @@ export default function SocialMediaCaptionGenerator() {
             <Button onClick={generateCaptions} disabled={loading}>
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                   Generating...
                 </>
               ) : (
@@ -172,10 +200,10 @@ export default function SocialMediaCaptionGenerator() {
 
           {captions.length > 0 && (
             <div className="mt-6 pt-6 border-t border-border">
-              <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                <PlatformIcon className="h-5 w-5" />
+              <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                <PlatformIcon className="h-5 w-5" aria-hidden="true" />
                 Generated Captions ({captions.length})
-              </h3>
+              </h2>
               <div className="space-y-4">
                 {captions.map((caption, index) => (
                   <div
@@ -191,8 +219,9 @@ export default function SocialMediaCaptionGenerator() {
                         size="sm"
                         onClick={() => copyCaption(caption)}
                         className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        aria-label="Copy caption"
                       >
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </div>
                   </div>
@@ -201,6 +230,16 @@ export default function SocialMediaCaptionGenerator() {
             </div>
           )}
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Best Free AI Caption Generator for Social Media 2026
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Create engaging captions for Instagram, TikTok, Twitter, and LinkedIn with our free AI caption generator. Perfect for content creators, marketers, and influencers in 2026.
+          </p>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );

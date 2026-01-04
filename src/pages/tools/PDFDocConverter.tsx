@@ -3,6 +3,7 @@ import { FileUp, Download, Upload, FileText, AlertCircle } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -12,6 +13,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free PDF to DOC Converter 2026",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free online PDF to DOC converter 2026. Convert PDF to Word and Word to PDF – fast, easy, no signup required.",
+  "url": "https://toolhub2026.com/pdf-doc-converter"
+};
 
 export default function PDFDocConverter() {
   const [file, setFile] = useState<File | null>(null);
@@ -37,7 +54,6 @@ export default function PDFDocConverter() {
       }
       setFile(selectedFile);
 
-      // Auto-select opposite format
       if (selectedFile.type === "application/pdf") {
         setOutputFormat("docx");
       } else {
@@ -66,20 +82,18 @@ export default function PDFDocConverter() {
     });
   };
 
-  const getFileIcon = () => {
-    if (!file) return null;
-    return file.type === "application/pdf" ? (
-      <div className="text-red-500">PDF</div>
-    ) : (
-      <div className="text-blue-500">DOC</div>
-    );
-  };
-
   return (
     <Layout>
+      <SEOHead
+        title="Free PDF to DOC Converter 2026 – Convert PDF to Word Online"
+        description="Free online PDF to DOC converter 2026. Convert PDF to Word and Word to PDF – fast, easy, preserves formatting, no signup required."
+        canonical="/pdf-doc-converter"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="PDF / DOC Converter – Convert Files Quickly and Easily"
-        description="Convert documents between PDF and DOC formats quickly and for free."
+        title="Free PDF to DOC Converter 2026"
+        description="Convert PDF to Word and Word to PDF for free. Fast, easy, and preserves formatting – no signup required."
         icon={FileUp}
       >
         <InstructionsCard
@@ -95,7 +109,7 @@ export default function PDFDocConverter() {
             "Use high-quality source files",
           ]}
           features={[
-            "PDF to DOC conversion",
+            "Free PDF to DOC converter 2026",
             "DOC to PDF conversion",
             "Preserves formatting",
             "Fast processing",
@@ -105,7 +119,7 @@ export default function PDFDocConverter() {
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="doc-upload" className="block text-sm font-medium text-foreground mb-2">
                 Upload Document
               </label>
               <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
@@ -119,7 +133,7 @@ export default function PDFDocConverter() {
                 <label htmlFor="doc-upload" className="cursor-pointer">
                   {file ? (
                     <div className="flex items-center justify-center gap-3">
-                      <FileText className="h-10 w-10 text-primary" />
+                      <FileText className="h-10 w-10 text-primary" aria-hidden="true" />
                       <div className="text-left">
                         <p className="text-sm font-medium text-foreground">{file.name}</p>
                         <p className="text-xs text-muted-foreground">
@@ -129,7 +143,7 @@ export default function PDFDocConverter() {
                     </div>
                   ) : (
                     <>
-                      <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+                      <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" aria-hidden="true" />
                       <p className="text-sm font-medium text-foreground">
                         Click to upload or drag and drop
                       </p>
@@ -143,11 +157,11 @@ export default function PDFDocConverter() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="format-select" className="block text-sm font-medium text-foreground mb-2">
                 Output Format
               </label>
               <Select value={outputFormat} onValueChange={setOutputFormat}>
-                <SelectTrigger className="w-full md:w-48">
+                <SelectTrigger id="format-select" className="w-full md:w-48">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -162,7 +176,7 @@ export default function PDFDocConverter() {
                 "Converting..."
               ) : (
                 <>
-                  <Download className="h-4 w-4" />
+                  <Download className="h-4 w-4" aria-hidden="true" />
                   Convert to {outputFormat.toUpperCase()}
                 </>
               )}
@@ -170,7 +184,7 @@ export default function PDFDocConverter() {
           </div>
 
           <div className="mt-6 p-4 rounded-lg bg-secondary/50 border border-border flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-sm text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Implementation Note</p>
               <p>
@@ -180,6 +194,16 @@ export default function PDFDocConverter() {
             </div>
           </div>
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Best Free PDF to Word Converter 2026
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Convert PDF to DOC and Word to PDF for free online. Our converter preserves formatting and works with all document types – no signup required.
+          </p>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );

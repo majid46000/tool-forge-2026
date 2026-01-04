@@ -3,6 +3,7 @@ import { Search, Copy, Loader2, TrendingUp, Target } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -13,6 +14,22 @@ interface Keyword {
   difficulty: "Low" | "Medium" | "High";
   type: "Short-tail" | "Long-tail";
 }
+
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free SEO Keyword Generator 2026",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free SEO keyword generator 2026. Find high-ranking keywords for your website, blog, and marketing campaigns.",
+  "url": "https://toolhub2026.com/seo-keyword-generator"
+};
 
 export default function SEOKeywordGenerator() {
   const [topic, setTopic] = useState("");
@@ -74,15 +91,22 @@ export default function SEOKeywordGenerator() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Free SEO Keyword Generator 2026 – Find High-Ranking Keywords"
+        description="Free SEO keyword generator 2026. Find high-ranking keywords with search volume and difficulty scores for your website and marketing."
+        canonical="/seo-keyword-generator"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="SEO Keyword Generator – Find Top Keywords for Your Website"
-        description="Generate high-ranking SEO keywords for your website, blog, or marketing campaigns."
+        title="Free SEO Keyword Generator 2026"
+        description="Find high-ranking SEO keywords with search volume and difficulty scores. The best free SEO tool for 2026."
         icon={Search}
       >
         <InstructionsCard
           steps={[
             "Enter your main topic or niche",
-            "Click Generate to find relevant keywords",
+            "Click Generate to find SEO keywords",
             "Copy keywords to use in your content strategy",
           ]}
           tips={[
@@ -91,36 +115,41 @@ export default function SEOKeywordGenerator() {
             "Use keywords naturally in your content",
           ]}
           features={[
+            "Free SEO keyword research 2026",
             "Search volume estimates",
             "Keyword difficulty scores",
             "Long-tail keyword suggestions",
-            "One-click copy functionality",
           ]}
         />
 
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Enter Your Topic
               </label>
               <Input
+                id="topic-input"
                 placeholder="e.g., digital marketing, web development, fitness..."
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateKeywords()}
+                aria-describedby="topic-help"
               />
+              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+                Enter a topic to discover SEO keywords with volume and difficulty
+              </p>
             </div>
 
             <Button onClick={generateKeywords} disabled={loading}>
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                   Analyzing...
                 </>
               ) : (
                 <>
-                  <Search className="h-4 w-4" />
+                  <Search className="h-4 w-4" aria-hidden="true" />
                   Generate Keywords
                 </>
               )}
@@ -130,11 +159,11 @@ export default function SEOKeywordGenerator() {
           {keywords.length > 0 && (
             <div className="mt-6 pt-6 border-t border-border">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-foreground">
-                  Generated Keywords ({keywords.length})
-                </h3>
-                <Button variant="outline" size="sm" onClick={copyKeywords}>
-                  <Copy className="h-4 w-4 mr-2" />
+                <h2 className="font-semibold text-foreground">
+                  SEO Keywords ({keywords.length})
+                </h2>
+                <Button variant="outline" size="sm" onClick={copyKeywords} aria-label="Copy all keywords">
+                  <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   Copy All
                 </Button>
               </div>
@@ -145,11 +174,11 @@ export default function SEOKeywordGenerator() {
                     <tr className="border-b border-border">
                       <th className="text-left py-3 px-2 font-medium text-muted-foreground">Keyword</th>
                       <th className="text-left py-3 px-2 font-medium text-muted-foreground">
-                        <TrendingUp className="h-4 w-4 inline mr-1" />
+                        <TrendingUp className="h-4 w-4 inline mr-1" aria-hidden="true" />
                         Volume
                       </th>
                       <th className="text-left py-3 px-2 font-medium text-muted-foreground">
-                        <Target className="h-4 w-4 inline mr-1" />
+                        <Target className="h-4 w-4 inline mr-1" aria-hidden="true" />
                         Difficulty
                       </th>
                       <th className="text-left py-3 px-2 font-medium text-muted-foreground">Type</th>
@@ -174,6 +203,16 @@ export default function SEOKeywordGenerator() {
             </div>
           )}
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Best Free SEO Keyword Tool for 2026
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Find high-ranking keywords for your website, blog, or marketing campaigns with our free SEO keyword generator. Get search volume estimates and difficulty scores to plan your content strategy.
+          </p>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );

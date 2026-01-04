@@ -3,6 +3,7 @@ import { Palette, Download, Loader2 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { ToolPageWrapper } from "@/components/shared/ToolPageWrapper";
 import { InstructionsCard } from "@/components/shared/InstructionsCard";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -46,6 +47,22 @@ const templates = {
   },
 };
 
+// JSON-LD for SoftwareApplication
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Free Canva Template Generator 2026",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free social media template generator 2026. Create Instagram, Facebook, YouTube templates like Canva – no signup required.",
+  "url": "https://toolhub2026.com/canva-template-generator"
+};
+
 export default function CanvaTemplateGenerator() {
   const [templateType, setTemplateType] = useState("instagram-post");
   const [generatedTemplate, setGeneratedTemplate] = useState<keyof typeof templates | null>(null);
@@ -72,9 +89,16 @@ export default function CanvaTemplateGenerator() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Free Canva Template Generator 2026 – Instagram, Facebook & More"
+        description="Free social media template generator 2026. Create Instagram posts, stories, YouTube thumbnails & logos like Canva – no signup required."
+        canonical="/canva-template-generator"
+        jsonLd={jsonLd}
+      />
+      
       <ToolPageWrapper
-        title="Canva Template Generator – Generate Templates Fast"
-        description="Create professional post and logo templates quickly with our Canva Template Generator."
+        title="Free Template Generator 2026 – Like Canva"
+        description="Create professional social media templates for Instagram, Facebook, YouTube & more – 100% free, no signup required."
         icon={Palette}
       >
         <InstructionsCard
@@ -89,9 +113,9 @@ export default function CanvaTemplateGenerator() {
             "Customize colors to match your brand",
           ]}
           features={[
+            "Free template generator 2026",
             "Multiple template formats",
             "Platform-specific dimensions",
-            "Free to use and download",
             "Professional designs",
           ]}
         />
@@ -99,11 +123,11 @@ export default function CanvaTemplateGenerator() {
         <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label htmlFor="template-select" className="block text-sm font-medium text-foreground mb-2">
                 Template Type
               </label>
               <Select value={templateType} onValueChange={setTemplateType}>
-                <SelectTrigger className="w-full md:w-64">
+                <SelectTrigger id="template-select" className="w-full md:w-64">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -120,7 +144,7 @@ export default function CanvaTemplateGenerator() {
             <Button onClick={handleGenerate} disabled={loading}>
               {loading ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                   Generating...
                 </>
               ) : (
@@ -131,13 +155,15 @@ export default function CanvaTemplateGenerator() {
 
           {generatedTemplate && templates[generatedTemplate] && (
             <div className="mt-6 pt-6 border-t border-border">
-              <h3 className="font-semibold text-foreground mb-4">Generated Template</h3>
+              <h2 className="font-semibold text-foreground mb-4">Generated Template</h2>
               <div className="grid gap-4 md:grid-cols-2">
                 <div
                   className={`aspect-square max-w-xs rounded-xl bg-gradient-to-br ${templates[generatedTemplate].color} flex items-center justify-center p-8 text-white shadow-lg`}
+                  role="img"
+                  aria-label={`${templates[generatedTemplate].title} preview`}
                 >
                   <div className="text-center">
-                    <Palette className="h-12 w-12 mx-auto mb-4 opacity-80" />
+                    <Palette className="h-12 w-12 mx-auto mb-4 opacity-80" aria-hidden="true" />
                     <p className="font-bold text-lg">{templates[generatedTemplate].title}</p>
                     <p className="text-sm opacity-75 mt-2">
                       {templates[generatedTemplate].dimensions}
@@ -154,7 +180,7 @@ export default function CanvaTemplateGenerator() {
                     <p className="font-medium text-foreground">{templates[generatedTemplate].dimensions}</p>
                   </div>
                   <Button onClick={handleDownload} variant="outline">
-                    <Download className="h-4 w-4 mr-2" />
+                    <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                     Download Template
                   </Button>
                 </div>
@@ -162,6 +188,16 @@ export default function CanvaTemplateGenerator() {
             </div>
           )}
         </div>
+
+        {/* Additional SEO Content */}
+        <section className="mt-12 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Best Free Template Generator 2026 – Canva Alternative
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Create professional social media templates for free. Our template generator works like Canva but requires no signup – perfect for Instagram, Facebook, YouTube, and more.
+          </p>
+        </section>
       </ToolPageWrapper>
     </Layout>
   );
