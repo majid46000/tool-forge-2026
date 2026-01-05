@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import heroTikTokDownloader from "@/assets/hero-tiktok-downloader.jpg";
 
 // JSON-LD for SoftwareApplication
 const jsonLd = {
@@ -84,6 +85,8 @@ export default function TikTokDownloader() {
         title="TikTok Downloader No Watermark – Free 2026"
         description="Download TikTok videos without watermark for free. The fastest and safest TikTok video downloader in 2026."
         icon={Video}
+        heroImage={heroTikTokDownloader}
+        heroAlt="TikTok Downloader No Watermark Free 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

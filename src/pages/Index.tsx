@@ -3,6 +3,7 @@ import { ToolCard } from "@/components/shared/ToolCard";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { AdNativeBanner, AdRectangle } from "@/components/ads";
+import heroHome from "@/assets/hero-home.jpg";
 import {
   MessageSquare,
   Video,
@@ -178,24 +179,31 @@ const Index = () => {
         jsonLd={jsonLd}
       />
       
-      {/* Hero Section */}
-      <section className="gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl animate-float" />
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/10 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+      {/* Hero Section with Banner */}
+      <section className="relative overflow-hidden">
+        {/* Hero Background Image */}
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src={heroHome}
+            alt="ToolHub 2026 Free AI Tools Hero Banner"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
         </div>
+        
         <div className="container relative py-20 md:py-28">
           <div className="mx-auto max-w-4xl text-center animate-fade-in">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white mb-6">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
               <span>10 Free AI & Social Media Tools 2026</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
               Best Free AI Tools 2026
               <br />
-              <span className="text-gradient">ChatGPT Alternative, TikTok & SEO</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">ChatGPT Alternative, TikTok & SEO</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow-md">
               Access the best free AI content generator, TikTok downloader no watermark, AI blog writer, hashtag finder & more – all free, no signup required.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -204,7 +212,7 @@ const Index = () => {
                   Explore Free Tools <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20" asChild>
                 <a href="/chatgpt-ai" aria-label="Try free ChatGPT alternative">
                   Try ChatGPT Alternative
                 </a>

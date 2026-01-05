@@ -7,6 +7,7 @@ import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import heroSeoKeywords from "@/assets/hero-seo-keywords.jpg";
 
 interface Keyword {
   term: string;
@@ -102,6 +103,8 @@ export default function SEOKeywordGenerator() {
         title="Free SEO Keyword Generator 2026"
         description="Find high-ranking SEO keywords with search volume and difficulty scores. The best free SEO tool for 2026."
         icon={Search}
+        heroImage={heroSeoKeywords}
+        heroAlt="Free SEO Keyword Generator Research Tool 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

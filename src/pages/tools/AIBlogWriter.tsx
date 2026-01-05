@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import heroBlogWriter from "@/assets/hero-blog-writer.jpg";
 
 // JSON-LD for SoftwareApplication
 const jsonLd = {
@@ -110,6 +111,8 @@ export default function AIBlogWriter() {
         title="Free AI Blog Writer 2026 – Create SEO Blog Posts"
         description="The best free AI blog writer for 2026. Generate complete, SEO-optimized blog posts automatically – perfect for bloggers and marketers."
         icon={FileText}
+        heroImage={heroBlogWriter}
+        heroAlt="Free AI Blog Writer SEO Content Generator 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[
