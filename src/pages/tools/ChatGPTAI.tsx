@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import heroChatgpt from "@/assets/hero-chatgpt.jpg";
 
 // JSON-LD for SoftwareApplication
 const jsonLd = {
@@ -110,6 +111,8 @@ export default function ChatGPTAI() {
         title="Free ChatGPT Alternative 2026 – AI Text Generator"
         description="The best free AI content generator for 2026. Generate articles, blog posts, and marketing copy instantly – no signup required."
         icon={MessageSquare}
+        heroImage={heroChatgpt}
+        heroAlt="Free ChatGPT Alternative AI Text Generator 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import heroPdfConverter from "@/assets/hero-pdf-converter.jpg";
 
 // JSON-LD for SoftwareApplication
 const jsonLd = {
@@ -95,6 +96,8 @@ export default function PDFDocConverter() {
         title="Free PDF to DOC Converter 2026"
         description="Convert PDF to Word and Word to PDF for free. Fast, easy, and preserves formatting – no signup required."
         icon={FileUp}
+        heroImage={heroPdfConverter}
+        heroAlt="Free PDF to DOC Word Converter 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

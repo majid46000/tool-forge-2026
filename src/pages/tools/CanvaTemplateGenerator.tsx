@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import heroCanvaTemplate from "@/assets/hero-canva-template.jpg";
 
 const templates = {
   "instagram-post": {
@@ -100,6 +101,8 @@ export default function CanvaTemplateGenerator() {
         title="Free Template Generator 2026 – Like Canva"
         description="Create professional social media templates for Instagram, Facebook, YouTube & more – 100% free, no signup required."
         icon={Palette}
+        heroImage={heroCanvaTemplate}
+        heroAlt="Free Canva Template Generator Social Media 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

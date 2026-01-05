@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import heroCaptionGenerator from "@/assets/hero-caption-generator.jpg";
 
 const platformIcons = {
   instagram: Instagram,
@@ -129,6 +130,8 @@ export default function SocialMediaCaptionGenerator() {
         title="Free AI Caption Generator 2026"
         description="Generate engaging social media captions for Instagram, TikTok, Twitter & LinkedIn using AI – 100% free."
         icon={Type}
+        heroImage={heroCaptionGenerator}
+        heroAlt="Free AI Social Media Caption Generator 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

@@ -7,6 +7,7 @@ import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import heroTrendingContent from "@/assets/hero-trending-content.jpg";
 
 interface TrendingContent {
   title: string;
@@ -102,6 +103,8 @@ export default function TrendingContentFinder() {
         title="Free Trending Content Finder 2026"
         description="Discover viral TikTok and YouTube content to boost your social media strategy. Find trending ideas for free."
         icon={TrendingUp}
+        heroImage={heroTrendingContent}
+        heroAlt="Free Trending Content Finder Viral Videos 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

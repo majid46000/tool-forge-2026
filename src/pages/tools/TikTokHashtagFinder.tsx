@@ -7,6 +7,7 @@ import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import heroHashtagFinder from "@/assets/hero-hashtag-finder.jpg";
 
 const trendingHashtags: Record<string, string[]> = {
   fitness: ["#fitnesstok", "#workout2026", "#gymlife", "#fitnessmotivation", "#healthylifestyle", "#fyp", "#viral", "#trending"],
@@ -96,6 +97,8 @@ export default function TikTokHashtagFinder() {
         title="Free TikTok Hashtag Finder 2026 – Trending Hashtags"
         description="Discover trending TikTok hashtags to boost your engagement and go viral in 2026. Free TikTok tools – no signup required."
         icon={Hash}
+        heroImage={heroHashtagFinder}
+        heroAlt="Free TikTok Hashtag Finder Trending Tags 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[

@@ -7,6 +7,7 @@ import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import heroVideoMp3 from "@/assets/hero-video-mp3.jpg";
 
 // JSON-LD for SoftwareApplication
 const jsonLd = {
@@ -79,6 +80,8 @@ export default function VideoToMP3Converter() {
         title="Free Video to MP3 Converter 2026"
         description="Convert any video to MP3 audio for free. Extract audio from YouTube, TikTok, and video files – fast and easy."
         icon={Music}
+        heroImage={heroVideoMp3}
+        heroAlt="Free Video to MP3 Audio Converter 2026 Hero Banner"
       >
         <InstructionsCard
           steps={[
