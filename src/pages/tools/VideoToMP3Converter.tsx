@@ -102,8 +102,8 @@ export default function VideoToMP3Converter() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="video-url" className="block text-sm font-medium text-foreground mb-2">
                 Video URL
@@ -116,9 +116,10 @@ export default function VideoToMP3Converter() {
                   setUrl(e.target.value);
                   setFile(null);
                 }}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="url-help"
               />
-              <p id="url-help" className="text-xs text-muted-foreground mt-1">
+              <p id="url-help" className="text-xs text-muted-foreground mt-2">
                 Paste any video URL to extract MP3 audio
               </p>
             </div>
@@ -126,7 +127,7 @@ export default function VideoToMP3Converter() {
             <div className="relative">
               <div className="flex items-center gap-4">
                 <span className="text-sm text-muted-foreground">OR</span>
-                <div className="flex-1 border-t border-border"></div>
+                <div className="flex-1 border-t border-white/10"></div>
               </div>
             </div>
 
@@ -134,7 +135,7 @@ export default function VideoToMP3Converter() {
               <label htmlFor="video-upload" className="block text-sm font-medium text-foreground mb-2">
                 Upload Video File
               </label>
-              <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+              <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors bg-white/5">
                 <input
                   type="file"
                   accept="video/*"
@@ -143,7 +144,7 @@ export default function VideoToMP3Converter() {
                   id="video-upload"
                 />
                 <label htmlFor="video-upload" className="cursor-pointer">
-                  <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" aria-hidden="true" />
+                  <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" aria-hidden="true" />
                   {file ? (
                     <p className="text-sm font-medium text-foreground">{file.name}</p>
                   ) : (
@@ -155,7 +156,11 @@ export default function VideoToMP3Converter() {
               </div>
             </div>
 
-            <Button onClick={handleConvert} disabled={processing}>
+            <Button 
+              onClick={handleConvert} 
+              disabled={processing}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {processing ? (
                 "Converting..."
               ) : (
@@ -167,8 +172,8 @@ export default function VideoToMP3Converter() {
             </Button>
           </div>
 
-          <div className="mt-6 p-4 rounded-lg bg-secondary/50 border border-border flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="mt-8 p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-start gap-4">
+            <AlertCircle className="h-5 w-5 text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-sm text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Server-Side Processing Required</p>
               <p>

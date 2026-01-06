@@ -119,13 +119,13 @@ export default function PDFDocConverter() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="doc-upload" className="block text-sm font-medium text-foreground mb-2">
                 Upload Document
               </label>
-              <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
+              <div className="border-2 border-dashed border-white/20 rounded-xl p-10 text-center hover:border-cyan-500/50 transition-colors bg-white/5">
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx"
@@ -135,8 +135,8 @@ export default function PDFDocConverter() {
                 />
                 <label htmlFor="doc-upload" className="cursor-pointer">
                   {file ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <FileText className="h-10 w-10 text-primary" aria-hidden="true" />
+                    <div className="flex items-center justify-center gap-4">
+                      <FileText className="h-12 w-12 text-cyan-400" aria-hidden="true" />
                       <div className="text-left">
                         <p className="text-sm font-medium text-foreground">{file.name}</p>
                         <p className="text-xs text-muted-foreground">
@@ -146,11 +146,11 @@ export default function PDFDocConverter() {
                     </div>
                   ) : (
                     <>
-                      <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-3" aria-hidden="true" />
+                      <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-4" aria-hidden="true" />
                       <p className="text-sm font-medium text-foreground">
                         Click to upload or drag and drop
                       </p>
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-xs text-muted-foreground mt-2">
                         PDF, DOC, or DOCX files
                       </p>
                     </>
@@ -164,17 +164,21 @@ export default function PDFDocConverter() {
                 Output Format
               </label>
               <Select value={outputFormat} onValueChange={setOutputFormat}>
-                <SelectTrigger id="format-select" className="w-full md:w-48">
+                <SelectTrigger id="format-select" className="w-full md:w-48 bg-white/5 border-white/10">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="glass-card">
                   <SelectItem value="pdf">PDF</SelectItem>
                   <SelectItem value="docx">DOCX</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <Button onClick={handleConvert} disabled={processing || !file}>
+            <Button 
+              onClick={handleConvert} 
+              disabled={processing || !file}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {processing ? (
                 "Converting..."
               ) : (
@@ -186,8 +190,8 @@ export default function PDFDocConverter() {
             </Button>
           </div>
 
-          <div className="mt-6 p-4 rounded-lg bg-secondary/50 border border-border flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="mt-8 p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-start gap-4">
+            <AlertCircle className="h-5 w-5 text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-sm text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Implementation Note</p>
               <p>

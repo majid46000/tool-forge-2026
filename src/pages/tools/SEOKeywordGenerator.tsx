@@ -80,11 +80,11 @@ export default function SEOKeywordGenerator() {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Low":
-        return "text-accent bg-accent/10";
+        return "text-emerald-400 bg-emerald-500/20 border border-emerald-500/30";
       case "Medium":
-        return "text-yellow-600 bg-yellow-100";
+        return "text-yellow-400 bg-yellow-500/20 border border-yellow-500/30";
       case "High":
-        return "text-destructive bg-destructive/10";
+        return "text-red-400 bg-red-500/20 border border-red-500/30";
       default:
         return "";
     }
@@ -125,8 +125,8 @@ export default function SEOKeywordGenerator() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Enter Your Topic
@@ -137,14 +137,19 @@ export default function SEOKeywordGenerator() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateKeywords()}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="topic-help"
               />
-              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+              <p id="topic-help" className="text-xs text-muted-foreground mt-2">
                 Enter a topic to discover SEO keywords with volume and difficulty
               </p>
             </div>
 
-            <Button onClick={generateKeywords} disabled={loading}>
+            <Button 
+              onClick={generateKeywords} 
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -160,44 +165,50 @@ export default function SEOKeywordGenerator() {
           </div>
 
           {keywords.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-border">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-foreground">
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-semibold text-foreground text-lg">
                   SEO Keywords ({keywords.length})
                 </h2>
-                <Button variant="outline" size="sm" onClick={copyKeywords} aria-label="Copy all keywords">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={copyKeywords} 
+                  aria-label="Copy all keywords"
+                  className="glass border-white/20 hover:bg-white/10"
+                >
                   <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   Copy All
                 </Button>
               </div>
 
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rounded-xl bg-white/5 border border-white/10">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-3 px-2 font-medium text-muted-foreground">Keyword</th>
-                      <th className="text-left py-3 px-2 font-medium text-muted-foreground">
+                    <tr className="border-b border-white/10">
+                      <th className="text-left py-4 px-4 font-medium text-muted-foreground">Keyword</th>
+                      <th className="text-left py-4 px-4 font-medium text-muted-foreground">
                         <TrendingUp className="h-4 w-4 inline mr-1" aria-hidden="true" />
                         Volume
                       </th>
-                      <th className="text-left py-3 px-2 font-medium text-muted-foreground">
+                      <th className="text-left py-4 px-4 font-medium text-muted-foreground">
                         <Target className="h-4 w-4 inline mr-1" aria-hidden="true" />
                         Difficulty
                       </th>
-                      <th className="text-left py-3 px-2 font-medium text-muted-foreground">Type</th>
+                      <th className="text-left py-4 px-4 font-medium text-muted-foreground">Type</th>
                     </tr>
                   </thead>
                   <tbody>
                     {keywords.map((keyword, index) => (
-                      <tr key={index} className="border-b border-border hover:bg-secondary/50">
-                        <td className="py-3 px-2 font-medium text-foreground">{keyword.term}</td>
-                        <td className="py-3 px-2 text-muted-foreground">{keyword.volume}</td>
-                        <td className="py-3 px-2">
-                          <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(keyword.difficulty)}`}>
+                      <tr key={index} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                        <td className="py-4 px-4 font-medium text-foreground">{keyword.term}</td>
+                        <td className="py-4 px-4 text-muted-foreground">{keyword.volume}</td>
+                        <td className="py-4 px-4">
+                          <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(keyword.difficulty)}`}>
                             {keyword.difficulty}
                           </span>
                         </td>
-                        <td className="py-3 px-2 text-muted-foreground">{keyword.type}</td>
+                        <td className="py-4 px-4 text-muted-foreground">{keyword.type}</td>
                       </tr>
                     ))}
                   </tbody>

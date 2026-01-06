@@ -123,17 +123,17 @@ export default function CanvaTemplateGenerator() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="template-select" className="block text-sm font-medium text-foreground mb-2">
                 Template Type
               </label>
               <Select value={templateType} onValueChange={setTemplateType}>
-                <SelectTrigger id="template-select" className="w-full md:w-64">
+                <SelectTrigger id="template-select" className="w-full md:w-64 bg-white/5 border-white/10">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="glass-card">
                   <SelectItem value="instagram-post">Instagram Post</SelectItem>
                   <SelectItem value="instagram-story">Instagram Story</SelectItem>
                   <SelectItem value="facebook-post">Facebook Post</SelectItem>
@@ -144,7 +144,11 @@ export default function CanvaTemplateGenerator() {
               </Select>
             </div>
 
-            <Button onClick={handleGenerate} disabled={loading}>
+            <Button 
+              onClick={handleGenerate} 
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -157,11 +161,11 @@ export default function CanvaTemplateGenerator() {
           </div>
 
           {generatedTemplate && templates[generatedTemplate] && (
-            <div className="mt-6 pt-6 border-t border-border">
-              <h2 className="font-semibold text-foreground mb-4">Generated Template</h2>
-              <div className="grid gap-4 md:grid-cols-2">
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <h2 className="font-semibold text-foreground mb-6 text-lg">Generated Template</h2>
+              <div className="grid gap-6 md:grid-cols-2">
                 <div
-                  className={`aspect-square max-w-xs rounded-xl bg-gradient-to-br ${templates[generatedTemplate].color} flex items-center justify-center p-8 text-white shadow-lg`}
+                  className={`aspect-square max-w-xs rounded-2xl bg-gradient-to-br ${templates[generatedTemplate].color} flex items-center justify-center p-8 text-white shadow-2xl`}
                   role="img"
                   aria-label={`${templates[generatedTemplate].title} preview`}
                 >
@@ -173,16 +177,20 @@ export default function CanvaTemplateGenerator() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col justify-center space-y-4">
+                <div className="flex flex-col justify-center space-y-6">
                   <div>
                     <p className="text-sm text-muted-foreground">Template Type</p>
-                    <p className="font-medium text-foreground">{templates[generatedTemplate].title}</p>
+                    <p className="font-medium text-foreground text-lg">{templates[generatedTemplate].title}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Dimensions</p>
-                    <p className="font-medium text-foreground">{templates[generatedTemplate].dimensions}</p>
+                    <p className="font-medium text-foreground text-lg">{templates[generatedTemplate].dimensions}</p>
                   </div>
-                  <Button onClick={handleDownload} variant="outline">
+                  <Button 
+                    onClick={handleDownload} 
+                    variant="outline"
+                    className="glass border-white/20 hover:bg-white/10"
+                  >
                     <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                     Download Template
                   </Button>

@@ -125,8 +125,8 @@ export default function TrendingContentFinder() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Content Topic
@@ -137,14 +137,19 @@ export default function TrendingContentFinder() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && findTrending()}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="topic-help"
               />
-              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+              <p id="topic-help" className="text-xs text-muted-foreground mt-2">
                 Enter your niche to find trending content ideas
               </p>
             </div>
 
-            <Button onClick={findTrending} disabled={loading}>
+            <Button 
+              onClick={findTrending} 
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -160,31 +165,31 @@ export default function TrendingContentFinder() {
           </div>
 
           {content.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-border">
-              <h2 className="font-semibold text-foreground mb-4">
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <h2 className="font-semibold text-foreground mb-6 text-lg">
                 Trending Content ({content.length} results)
               </h2>
               <div className="space-y-4">
                 {content.map((item, index) => (
                   <article
                     key={index}
-                    className="bg-secondary rounded-lg p-4 hover:bg-secondary/80 transition-colors"
+                    className="bg-white/5 rounded-xl p-5 hover:bg-white/10 transition-colors border border-white/10"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-2">
                           <span
-                            className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                            className={`text-xs font-medium px-3 py-1 rounded-full ${
                               item.platform === "TikTok"
-                                ? "bg-pink-100 text-pink-700"
-                                : "bg-red-100 text-red-700"
+                                ? "bg-pink-500/20 text-pink-400 border border-pink-500/30"
+                                : "bg-red-500/20 text-red-400 border border-red-500/30"
                             }`}
                           >
                             {item.platform}
                           </span>
                         </div>
-                        <h3 className="font-medium text-foreground mb-1">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                        <h3 className="font-medium text-foreground mb-2">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
                         <div className="flex items-center gap-4 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Play className="h-3 w-3" aria-hidden="true" />
@@ -196,7 +201,12 @@ export default function TrendingContentFinder() {
                           </span>
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="shrink-0" aria-label="View content">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="shrink-0 hover:bg-white/10" 
+                        aria-label="View content"
+                      >
                         <ExternalLink className="h-4 w-4" aria-hidden="true" />
                       </Button>
                     </div>
@@ -204,7 +214,7 @@ export default function TrendingContentFinder() {
                 ))}
               </div>
 
-              <p className="text-xs text-muted-foreground mt-4 text-center">
+              <p className="text-xs text-muted-foreground mt-6 text-center p-4 rounded-lg bg-white/5 border border-white/10">
                 Note: This is demo data. Real implementation would require API integration with TikTok and YouTube.
               </p>
             </div>

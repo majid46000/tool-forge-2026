@@ -108,8 +108,8 @@ export default function TikTokDownloader() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="tiktok-url" className="block text-sm font-medium text-foreground mb-2">
                 TikTok Video URL
@@ -119,9 +119,10 @@ export default function TikTokDownloader() {
                 placeholder="https://www.tiktok.com/@username/video/..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="url-help"
               />
-              <p id="url-help" className="text-xs text-muted-foreground mt-1">
+              <p id="url-help" className="text-xs text-muted-foreground mt-2">
                 Paste any TikTok video link to download without watermark
               </p>
             </div>
@@ -131,17 +132,21 @@ export default function TikTokDownloader() {
                 Format
               </label>
               <Select value={format} onValueChange={setFormat}>
-                <SelectTrigger id="format-select" className="w-full md:w-48">
+                <SelectTrigger id="format-select" className="w-full md:w-48 bg-white/5 border-white/10">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="glass-card">
                   <SelectItem value="mp4">MP4 Video (No Watermark)</SelectItem>
                   <SelectItem value="mp3">MP3 Audio Only</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <Button onClick={handleDownload} disabled={processing}>
+            <Button 
+              onClick={handleDownload} 
+              disabled={processing}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {processing ? (
                 "Processing..."
               ) : (
@@ -153,8 +158,8 @@ export default function TikTokDownloader() {
             </Button>
           </div>
 
-          <div className="mt-6 p-4 rounded-lg bg-secondary/50 border border-border flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="mt-8 p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-start gap-4">
+            <AlertCircle className="h-5 w-5 text-cyan-400 shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-sm text-muted-foreground">
               <p className="font-medium text-foreground mb-1">Server-Side Processing Required</p>
               <p>
