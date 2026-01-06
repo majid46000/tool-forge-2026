@@ -133,8 +133,8 @@ export default function ChatGPTAI() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="prompt-input" className="block text-sm font-medium text-foreground mb-2">
                 Your Prompt
@@ -144,15 +144,19 @@ export default function ChatGPTAI() {
                 placeholder="Enter your topic or describe what you want to generate... (e.g., 'Write a blog post about sustainable technology trends in 2026')"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-32"
+                className="min-h-32 bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="prompt-help"
               />
-              <p id="prompt-help" className="text-xs text-muted-foreground mt-1">
+              <p id="prompt-help" className="text-xs text-muted-foreground mt-2">
                 Be specific for better AI-generated content
               </p>
             </div>
 
-            <Button onClick={handleGenerate} disabled={loading} className="w-full md:w-auto">
+            <Button 
+              onClick={handleGenerate} 
+              disabled={loading} 
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -165,16 +169,22 @@ export default function ChatGPTAI() {
           </div>
 
           {output && (
-            <div className="mt-6 pt-6 border-t border-border">
+            <div className="mt-8 pt-8 border-t border-white/10">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-foreground">Generated Content</h2>
-                <Button variant="outline" size="sm" onClick={handleCopy} aria-label="Copy generated content">
+                <h2 className="font-semibold text-foreground text-lg">Generated Content</h2>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleCopy} 
+                  aria-label="Copy generated content"
+                  className="glass border-white/20 hover:bg-white/10"
+                >
                   <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   Copy
                 </Button>
               </div>
-              <div className="bg-secondary rounded-lg p-4 prose prose-sm max-w-none">
-                <pre className="whitespace-pre-wrap text-foreground font-sans text-sm">
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                <pre className="whitespace-pre-wrap text-foreground font-sans text-sm leading-relaxed">
                   {output}
                 </pre>
               </div>

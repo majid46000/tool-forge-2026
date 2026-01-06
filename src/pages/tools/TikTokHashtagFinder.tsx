@@ -119,8 +119,8 @@ export default function TikTokHashtagFinder() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Content Topic
@@ -131,14 +131,19 @@ export default function TikTokHashtagFinder() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateHashtags()}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="topic-help"
               />
-              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+              <p id="topic-help" className="text-xs text-muted-foreground mt-2">
                 Enter your niche to find trending TikTok hashtags
               </p>
             </div>
 
-            <Button onClick={generateHashtags} disabled={loading}>
+            <Button 
+              onClick={generateHashtags} 
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -151,21 +156,27 @@ export default function TikTokHashtagFinder() {
           </div>
 
           {hashtags.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-border">
+            <div className="mt-8 pt-8 border-t border-white/10">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-foreground">
+                <h2 className="font-semibold text-foreground text-lg">
                   Trending TikTok Hashtags ({hashtags.length})
                 </h2>
-                <Button variant="outline" size="sm" onClick={copyHashtags} aria-label="Copy all hashtags">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={copyHashtags} 
+                  aria-label="Copy all hashtags"
+                  className="glass border-white/20 hover:bg-white/10"
+                >
                   <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   Copy All
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {hashtags.map((tag, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary hover:bg-primary/20 transition-colors cursor-pointer"
+                    className="inline-flex items-center rounded-full bg-cyan-500/20 border border-cyan-500/30 px-4 py-2 text-sm font-medium text-cyan-400 hover:bg-cyan-500/30 transition-colors cursor-pointer"
                     onClick={() => {
                       navigator.clipboard.writeText(tag);
                       toast({ title: "Copied!", description: `${tag} copied to clipboard.` });

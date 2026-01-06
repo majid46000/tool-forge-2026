@@ -15,48 +15,54 @@ interface ToolPageWrapperProps {
 export function ToolPageWrapper({ title, description, icon: Icon, children, heroImage, heroAlt }: ToolPageWrapperProps) {
   return (
     <div className="min-h-screen">
-      {/* Hero Banner */}
-      {heroImage && (
-        <div className="relative w-full h-[280px] md:h-[340px] lg:h-[400px] overflow-hidden">
+      {/* Premium Hero Banner */}
+      <div className="relative min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden">
+        {/* Background Layers */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-purple-900/30 to-emerald-900/50" />
+        <div className="absolute inset-0 bg-black/40" />
+        
+        {heroImage && (
           <img
             src={heroImage}
             alt={heroAlt || `${title} Hero Banner`}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center px-4 animate-fade-in">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/90 shadow-glow mb-4">
-                <Icon className="h-8 w-8 text-primary-foreground" />
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 drop-shadow-lg">{title}</h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto drop-shadow-md">{description}</p>
-            </div>
+        )}
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+        
+        {/* Content */}
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
+          <div className="inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-emerald-500/20 backdrop-blur-xl border border-white/20 shadow-2xl mb-8">
+            <Icon className="h-10 w-10 text-cyan-400" />
           </div>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-6">
+            {title}
+          </h1>
+          
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+            {description}
+          </p>
         </div>
-      )}
+      </div>
 
-      <div className="gradient-hero">
-        <div className="container py-8">
+      {/* Content Section */}
+      <div className="relative bg-gradient-to-b from-background to-background/95">
+        <div className="container py-12">
           <Breadcrumb items={[{ label: "Tools" }, { label: title }]} />
 
-          {/* Fallback hero if no image */}
-          {!heroImage && (
-            <div className="text-center mb-12 animate-fade-in">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-glow mb-6">
-                <Icon className="h-8 w-8 text-primary-foreground" />
-              </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{title}</h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{description}</p>
-            </div>
-          )}
-
-          {children}
+          <div className="mt-8">
+            {children}
+          </div>
 
           {/* Ads below tool content */}
-          <AdNativeBanner />
-          <AdRectangle />
+          <div className="mt-12">
+            <AdNativeBanner />
+            <AdRectangle />
+          </div>
         </div>
       </div>
     </div>

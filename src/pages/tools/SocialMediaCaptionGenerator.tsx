@@ -153,8 +153,8 @@ export default function SocialMediaCaptionGenerator() {
           ]}
         />
 
-        <div className="bg-card rounded-xl border border-border p-6 shadow-card animate-slide-up">
-          <div className="space-y-4">
+        <div className="glass-card p-8 animate-slide-up">
+          <div className="space-y-6">
             <div>
               <label htmlFor="topic-input" className="block text-sm font-medium text-foreground mb-2">
                 Content Topic
@@ -165,9 +165,10 @@ export default function SocialMediaCaptionGenerator() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateCaptions()}
+                className="bg-white/5 border-white/10 focus:border-cyan-500/50"
                 aria-describedby="topic-help"
               />
-              <p id="topic-help" className="text-xs text-muted-foreground mt-1">
+              <p id="topic-help" className="text-xs text-muted-foreground mt-2">
                 Describe your post to generate engaging captions
               </p>
             </div>
@@ -177,10 +178,10 @@ export default function SocialMediaCaptionGenerator() {
                 Platform
               </label>
               <Select value={platform} onValueChange={setPlatform}>
-                <SelectTrigger id="platform-select" className="w-full md:w-48">
+                <SelectTrigger id="platform-select" className="w-full md:w-48 bg-white/5 border-white/10">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="glass-card">
                   <SelectItem value="instagram">Instagram</SelectItem>
                   <SelectItem value="twitter">Twitter/X</SelectItem>
                   <SelectItem value="linkedin">LinkedIn</SelectItem>
@@ -189,7 +190,11 @@ export default function SocialMediaCaptionGenerator() {
               </Select>
             </div>
 
-            <Button onClick={generateCaptions} disabled={loading}>
+            <Button 
+              onClick={generateCaptions} 
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-semibold py-3 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -202,26 +207,26 @@ export default function SocialMediaCaptionGenerator() {
           </div>
 
           {captions.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-border">
-              <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                <PlatformIcon className="h-5 w-5" aria-hidden="true" />
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <h2 className="font-semibold text-foreground mb-6 flex items-center gap-2 text-lg">
+                <PlatformIcon className="h-5 w-5 text-cyan-400" aria-hidden="true" />
                 Generated Captions ({captions.length})
               </h2>
               <div className="space-y-4">
                 {captions.map((caption, index) => (
                   <div
                     key={index}
-                    className="bg-secondary rounded-lg p-4 group hover:bg-secondary/80 transition-colors"
+                    className="bg-white/5 rounded-xl p-5 group hover:bg-white/10 transition-colors border border-white/10"
                   >
                     <div className="flex justify-between items-start gap-4">
-                      <p className="text-sm text-foreground whitespace-pre-wrap flex-1">
+                      <p className="text-sm text-foreground whitespace-pre-wrap flex-1 leading-relaxed">
                         {caption}
                       </p>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => copyCaption(caption)}
-                        className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/10"
                         aria-label="Copy caption"
                       >
                         <Copy className="h-4 w-4" aria-hidden="true" />
