@@ -203,17 +203,20 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-purple-900/30 to-emerald-900/50" />
         <div className="absolute inset-0 bg-black/40" />
         
-        <img
-          src="/images/hero-home.jpg"
-          alt="ToolForge 2026 Free AI Tools Hero Banner"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-          loading="eager"
-          fetchPriority="high"
-          decoding="sync"
-          width={1920}
-          height={1080}
-          sizes="100vw"
-        />
+        <picture>
+          <source srcSet="/images/hero-home.webp" type="image/webp" />
+          <img
+            src="/images/hero-home.jpg"
+            alt="ToolForge 2026 Free AI Tools Hero Banner"
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+            width={1920}
+            height={1080}
+            sizes="100vw"
+          />
+        </picture>
         
         {/* Animated Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
