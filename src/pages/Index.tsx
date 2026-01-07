@@ -212,6 +212,7 @@ const Index = () => {
           decoding="sync"
           width={1920}
           height={1080}
+          sizes="100vw"
         />
         
         {/* Animated Gradient Overlay */}
