@@ -3,7 +3,7 @@ import { ToolCard } from "@/components/shared/ToolCard";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { AdNativeBanner, AdRectangle } from "@/components/ads";
-const heroHome = "/images/hero-home.jpg";
+
 import {
   MessageSquare,
   Video,
@@ -204,7 +204,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/40" />
         
         <img
-          src={heroHome}
+          src="/images/hero-home.jpg"
           alt="ToolForge 2026 Free AI Tools Hero Banner"
           className="absolute inset-0 w-full h-full object-cover opacity-40"
           loading="eager"
