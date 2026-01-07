@@ -58,6 +58,15 @@
     
     <!-- Preload LCP image for faster rendering -->
     <link rel="preload" as="image" href="/images/hero-home.jpg" fetchpriority="high" />
+    
+    <!-- Critical inline CSS for above-the-fold content to reduce render-blocking -->
+    <style>
+      *,*::before,*::after{box-sizing:border-box;border:0 solid}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif}
+      body{margin:0;line-height:inherit;background-color:#0f0f0f;color:#f5f5f5}
+      #root{min-height:100vh;display:flex;flex-direction:column}
+      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    </style>
   </head>
 
   <body>
