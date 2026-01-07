@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,18 +7,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import ChatGPTAI from "./pages/tools/ChatGPTAI";
-import TikTokDownloader from "./pages/tools/TikTokDownloader";
-import TikTokHashtagFinder from "./pages/tools/TikTokHashtagFinder";
-import CanvaTemplateGenerator from "./pages/tools/CanvaTemplateGenerator";
-import SEOKeywordGenerator from "./pages/tools/SEOKeywordGenerator";
-import VideoToMP3Converter from "./pages/tools/VideoToMP3Converter";
-import AIBlogWriter from "./pages/tools/AIBlogWriter";
-import SocialMediaCaptionGenerator from "./pages/tools/SocialMediaCaptionGenerator";
-import PDFDocConverter from "./pages/tools/PDFDocConverter";
-import TrendingContentFinder from "./pages/tools/TrendingContentFinder";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Terms from "./pages/Terms";
+
+// Lazy load tool pages for better initial bundle size
+const ChatGPTAI = lazy(() => import("./pages/tools/ChatGPTAI"));
+const TikTokDownloader = lazy(() => import("./pages/tools/TikTokDownloader"));
+const TikTokHashtagFinder = lazy(() => import("./pages/tools/TikTokHashtagFinder"));
+const CanvaTemplateGenerator = lazy(() => import("./pages/tools/CanvaTemplateGenerator"));
+const SEOKeywordGenerator = lazy(() => import("./pages/tools/SEOKeywordGenerator"));
+const VideoToMP3Converter = lazy(() => import("./pages/tools/VideoToMP3Converter"));
+const AIBlogWriter = lazy(() => import("./pages/tools/AIBlogWriter"));
+const SocialMediaCaptionGenerator = lazy(() => import("./pages/tools/SocialMediaCaptionGenerator"));
+const PDFDocConverter = lazy(() => import("./pages/tools/PDFDocConverter"));
+const TrendingContentFinder = lazy(() => import("./pages/tools/TrendingContentFinder"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Terms = lazy(() => import("./pages/Terms"));
+
+// Minimal loading fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 const queryClient = new QueryClient();
 
@@ -37,22 +47,24 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/chatgpt-ai" element={<ChatGPTAI />} />
-            <Route path="/tiktok-downloader" element={<TikTokDownloader />} />
-            <Route path="/tiktok-hashtag-finder" element={<TikTokHashtagFinder />} />
-            <Route path="/canva-template-generator" element={<CanvaTemplateGenerator />} />
-            <Route path="/seo-keyword-generator" element={<SEOKeywordGenerator />} />
-            <Route path="/video-to-mp3-converter" element={<VideoToMP3Converter />} />
-            <Route path="/ai-blog-writer" element={<AIBlogWriter />} />
-            <Route path="/social-media-caption-generator" element={<SocialMediaCaptionGenerator />} />
-            <Route path="/pdf-doc-converter" element={<PDFDocConverter />} />
-            <Route path="/trending-content-finder" element={<TrendingContentFinder />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/chatgpt-ai" element={<ChatGPTAI />} />
+              <Route path="/tiktok-downloader" element={<TikTokDownloader />} />
+              <Route path="/tiktok-hashtag-finder" element={<TikTokHashtagFinder />} />
+              <Route path="/canva-template-generator" element={<CanvaTemplateGenerator />} />
+              <Route path="/seo-keyword-generator" element={<SEOKeywordGenerator />} />
+              <Route path="/video-to-mp3-converter" element={<VideoToMP3Converter />} />
+              <Route path="/ai-blog-writer" element={<AIBlogWriter />} />
+              <Route path="/social-media-caption-generator" element={<SocialMediaCaptionGenerator />} />
+              <Route path="/pdf-doc-converter" element={<PDFDocConverter />} />
+              <Route path="/trending-content-finder" element={<TrendingContentFinder />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
