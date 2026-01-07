@@ -209,8 +209,9 @@ const Index = () => {
           className="absolute inset-0 w-full h-full object-cover opacity-40"
           loading="eager"
           fetchPriority="high"
-          decoding="async"
-          sizes="100vw"
+          decoding="sync"
+          width={1920}
+          height={1080}
         />
         
         {/* Animated Gradient Overlay */}
