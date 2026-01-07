@@ -204,9 +204,15 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/40" />
         
         <picture>
-          <source srcSet="/images/hero-home.webp" type="image/webp" />
+          <source 
+            srcSet="/images/hero-home.webp" 
+            type="image/webp"
+            sizes="100vw"
+          />
           <img
             src="/images/hero-home.jpg"
+            srcSet="/images/hero-home.jpg 1920w"
+            sizes="100vw"
             alt="ToolForge 2026 Free AI Tools Hero Banner"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
             loading="eager"
@@ -214,7 +220,6 @@ const Index = () => {
             decoding="sync"
             width={1920}
             height={1080}
-            sizes="100vw"
           />
         </picture>
         
