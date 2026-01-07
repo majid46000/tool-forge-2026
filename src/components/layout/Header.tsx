@@ -105,6 +105,7 @@ export function Header() {
             size="icon"
             onClick={() => setIsDark(!isDark)}
             className="hover:bg-white/10"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -117,6 +118,7 @@ export function Header() {
             size="icon"
             onClick={() => setIsDark(!isDark)}
             className="hover:bg-white/10"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -125,6 +127,7 @@ export function Header() {
             size="icon"
             className="hover:bg-white/10"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
