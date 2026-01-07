@@ -208,6 +208,9 @@ const Index = () => {
           alt="ToolForge 2026 Free AI Tools Hero Banner"
           className="absolute inset-0 w-full h-full object-cover opacity-40"
           loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          sizes="100vw"
         />
         
         {/* Animated Gradient Overlay */}
