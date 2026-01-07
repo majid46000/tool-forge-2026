@@ -24,7 +24,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6 text-lg">Quick Links</h4>
+            <h3 className="font-semibold text-foreground mb-6 text-lg">Quick Links</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-cyan-400 transition-colors">
@@ -51,7 +51,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6 text-lg">Connect</h4>
+            <h3 className="font-semibold text-foreground mb-6 text-lg">Connect</h3>
             <div className="flex gap-3">
               <a
                 href="#"
