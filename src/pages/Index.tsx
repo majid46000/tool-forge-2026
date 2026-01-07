@@ -240,7 +240,7 @@ const Index = () => {
               className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold py-6 px-10 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg"
               asChild
             >
-              <a href="#tools" aria-label="Explore all free AI tools">
+              <a href="#tools">
                 Explore Tools Now <ArrowRight className="h-5 w-5 ml-2" aria-hidden="true" />
               </a>
             </Button>
@@ -250,7 +250,7 @@ const Index = () => {
               className="glass border-white/20 text-foreground hover:bg-white/10 py-6 px-10 rounded-xl text-lg font-semibold"
               asChild
             >
-              <a href="/chatgpt-ai" aria-label="Try free ChatGPT alternative">
+              <a href="/chatgpt-ai">
                 Try ChatGPT AI
               </a>
             </Button>
@@ -340,7 +340,7 @@ const Index = () => {
               className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold py-6 px-12 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg"
               asChild
             >
-              <a href="#tools" aria-label="Get started with free AI tools">
+              <a href="#tools">
                 Get Started Free <ArrowRight className="h-5 w-5 ml-2" aria-hidden="true" />
               </a>
             </Button>
