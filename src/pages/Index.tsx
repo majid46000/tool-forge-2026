@@ -3,7 +3,7 @@ import { ToolCard } from "@/components/shared/ToolCard";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { Button } from "@/components/ui/button";
 import { AdNativeBanner, AdRectangle } from "@/components/ads";
-import heroHome from "@/assets/hero-home.jpg";
+const heroHome = "/images/hero-home.jpg";
 import {
   MessageSquare,
   Video,
