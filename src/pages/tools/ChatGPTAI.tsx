@@ -105,6 +105,12 @@ export default function ChatGPTAI() {
         description="Best free ChatGPT alternative 2026. Generate high-quality articles, text, and content instantly with AI – no login required."
         canonical="/chatgpt-ai"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "AI Tools", url: "/" },
+          { name: "Free ChatGPT Alternative", url: "/chatgpt-ai" }
+        ]}
+        imageAlt="Free ChatGPT Alternative AI Text Generator 2026"
       />
       
       <ToolPageWrapper
@@ -113,6 +119,7 @@ export default function ChatGPTAI() {
         icon={MessageSquare}
         heroImage={heroChatgpt}
         heroAlt="Free ChatGPT Alternative AI Text Generator 2026 Hero Banner"
+        currentPath="/chatgpt-ai"
       >
         <InstructionsCard
           steps={[

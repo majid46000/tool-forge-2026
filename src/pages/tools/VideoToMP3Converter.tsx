@@ -74,6 +74,12 @@ export default function VideoToMP3Converter() {
         description="Free online video to MP3 converter 2026. Extract audio from YouTube, TikTok, and any video file – fast, easy, no signup required."
         canonical="/video-to-mp3-converter"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Media Tools", url: "/" },
+          { name: "Video to MP3", url: "/video-to-mp3-converter" }
+        ]}
+        imageAlt="Free Video to MP3 Audio Converter 2026"
       />
       
       <ToolPageWrapper
@@ -82,6 +88,7 @@ export default function VideoToMP3Converter() {
         icon={Music}
         heroImage={heroVideoMp3}
         heroAlt="Free Video to MP3 Audio Converter 2026 Hero Banner"
+        currentPath="/video-to-mp3-converter"
       >
         <InstructionsCard
           steps={[

@@ -90,6 +90,12 @@ export default function PDFDocConverter() {
         description="Free online PDF to DOC converter 2026. Convert PDF to Word and Word to PDF – fast, easy, preserves formatting, no signup required."
         canonical="/pdf-doc-converter"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Document Tools", url: "/" },
+          { name: "PDF Converter", url: "/pdf-doc-converter" }
+        ]}
+        imageAlt="Free PDF to DOC Word Converter 2026"
       />
       
       <ToolPageWrapper
@@ -98,6 +104,7 @@ export default function PDFDocConverter() {
         icon={FileUp}
         heroImage={heroPdfConverter}
         heroAlt="Free PDF to DOC Word Converter 2026 Hero Banner"
+        currentPath="/pdf-doc-converter"
       >
         <InstructionsCard
           steps={[

@@ -97,6 +97,12 @@ export default function SEOKeywordGenerator() {
         description="Free SEO keyword generator 2026. Find high-ranking keywords with search volume and difficulty scores for your website and marketing."
         canonical="/seo-keyword-generator"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "SEO Tools", url: "/" },
+          { name: "SEO Keyword Generator", url: "/seo-keyword-generator" }
+        ]}
+        imageAlt="Free SEO Keyword Generator Research Tool 2026"
       />
       
       <ToolPageWrapper
@@ -105,6 +111,7 @@ export default function SEOKeywordGenerator() {
         icon={Search}
         heroImage={heroSeoKeywords}
         heroAlt="Free SEO Keyword Generator Research Tool 2026 Hero Banner"
+        currentPath="/seo-keyword-generator"
       >
         <InstructionsCard
           steps={[

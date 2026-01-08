@@ -1,11 +1,18 @@
 import { Helmet } from "react-helmet-async";
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface SEOHeadProps {
   title: string;
   description: string;
   canonical?: string;
   type?: "website" | "article";
   jsonLd?: object;
+  breadcrumbs?: BreadcrumbItem[];
+  imageAlt?: string;
 }
 
 export function SEOHead({ 
@@ -13,10 +20,23 @@ export function SEOHead({
   description, 
   canonical,
   type = "website",
-  jsonLd 
+  jsonLd,
+  breadcrumbs,
+  imageAlt = "ToolHub 2026 - Free AI Tools"
 }: SEOHeadProps) {
   const baseUrl = "https://toolhub2026.com";
   const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
+
+  // Organization structured data
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ToolHub 2026",
+    "url": baseUrl,
+    "logo": `${baseUrl}/og-image.png`,
+    "description": "Free AI tools for content creation, SEO, and social media in 2026",
+    "sameAs": []
+  };
 
   // Default WebSite structured data
   const defaultJsonLd = {
@@ -25,12 +45,25 @@ export function SEOHead({
     "name": "ToolHub 2026",
     "url": baseUrl,
     "description": "Free AI tools 2026: ChatGPT alternative, AI blog writer, TikTok downloader no watermark, hashtag finder, caption generator & more – all free, no signup.",
+    "publisher": organizationJsonLd,
     "potentialAction": {
       "@type": "SearchAction",
       "target": `${baseUrl}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string"
     }
   };
+
+  // BreadcrumbList structured data
+  const breadcrumbJsonLd = breadcrumbs && breadcrumbs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url.startsWith("http") ? item.url : `${baseUrl}${item.url}`
+    }))
+  } : null;
 
   return (
     <Helmet>
@@ -61,6 +94,18 @@ export function SEOHead({
       <script type="application/ld+json">
         {JSON.stringify(jsonLd || defaultJsonLd)}
       </script>
+      
+      {/* Organization Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify(organizationJsonLd)}
+      </script>
+      
+      {/* Breadcrumb Schema */}
+      {breadcrumbJsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbJsonLd)}
+        </script>
+      )}
     </Helmet>
   );
 }
