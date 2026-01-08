@@ -95,6 +95,12 @@ export default function CanvaTemplateGenerator() {
         description="Free social media template generator 2026. Create Instagram posts, stories, YouTube thumbnails & logos like Canva – no signup required."
         canonical="/canva-template-generator"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Design Tools", url: "/" },
+          { name: "Template Generator", url: "/canva-template-generator" }
+        ]}
+        imageAlt="Free Canva Template Generator Social Media 2026"
       />
       
       <ToolPageWrapper
@@ -103,6 +109,7 @@ export default function CanvaTemplateGenerator() {
         icon={Palette}
         heroImage={heroCanvaTemplate}
         heroAlt="Free Canva Template Generator Social Media 2026 Hero Banner"
+        currentPath="/canva-template-generator"
       >
         <InstructionsCard
           steps={[

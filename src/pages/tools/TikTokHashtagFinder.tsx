@@ -91,6 +91,12 @@ export default function TikTokHashtagFinder() {
         description="Find trending TikTok hashtags for free. Boost your TikTok engagement with viral hashtags in 2026 – best free TikTok tools."
         canonical="/tiktok-hashtag-finder"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "TikTok Tools", url: "/" },
+          { name: "Hashtag Finder", url: "/tiktok-hashtag-finder" }
+        ]}
+        imageAlt="Free TikTok Hashtag Finder Trending Tags 2026"
       />
       
       <ToolPageWrapper
@@ -99,6 +105,7 @@ export default function TikTokHashtagFinder() {
         icon={Hash}
         heroImage={heroHashtagFinder}
         heroAlt="Free TikTok Hashtag Finder Trending Tags 2026 Hero Banner"
+        currentPath="/tiktok-hashtag-finder"
       >
         <InstructionsCard
           steps={[

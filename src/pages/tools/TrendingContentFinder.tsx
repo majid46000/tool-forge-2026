@@ -97,6 +97,12 @@ export default function TrendingContentFinder() {
         description="Discover trending TikTok and YouTube content for free. Find viral video ideas to boost your social media strategy in 2026."
         canonical="/trending-content-finder"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Content Tools", url: "/" },
+          { name: "Trending Finder", url: "/trending-content-finder" }
+        ]}
+        imageAlt="Free Trending Content Finder Viral Videos 2026"
       />
       
       <ToolPageWrapper
@@ -105,6 +111,7 @@ export default function TrendingContentFinder() {
         icon={TrendingUp}
         heroImage={heroTrendingContent}
         heroAlt="Free Trending Content Finder Viral Videos 2026 Hero Banner"
+        currentPath="/trending-content-finder"
       >
         <InstructionsCard
           steps={[

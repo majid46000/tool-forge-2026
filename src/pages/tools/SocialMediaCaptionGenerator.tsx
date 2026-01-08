@@ -124,6 +124,12 @@ export default function SocialMediaCaptionGenerator() {
         description="Free AI caption generator for Instagram, TikTok, Twitter & LinkedIn. Create engaging social media captions instantly in 2026."
         canonical="/social-media-caption-generator"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Social Media Tools", url: "/" },
+          { name: "Caption Generator", url: "/social-media-caption-generator" }
+        ]}
+        imageAlt="Free AI Social Media Caption Generator 2026"
       />
       
       <ToolPageWrapper
@@ -132,6 +138,7 @@ export default function SocialMediaCaptionGenerator() {
         icon={Type}
         heroImage={heroCaptionGenerator}
         heroAlt="Free AI Social Media Caption Generator 2026 Hero Banner"
+        currentPath="/social-media-caption-generator"
       >
         <InstructionsCard
           steps={[

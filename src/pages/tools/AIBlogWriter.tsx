@@ -105,6 +105,12 @@ export default function AIBlogWriter() {
         description="Generate complete, SEO-optimized blog posts for free with the best AI blog writer 2026. Perfect for bloggers and marketers."
         canonical="/ai-blog-writer"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "AI Tools", url: "/" },
+          { name: "AI Blog Writer", url: "/ai-blog-writer" }
+        ]}
+        imageAlt="Free AI Blog Writer SEO Content Generator 2026"
       />
       
       <ToolPageWrapper
@@ -113,6 +119,7 @@ export default function AIBlogWriter() {
         icon={FileText}
         heroImage={heroBlogWriter}
         heroAlt="Free AI Blog Writer SEO Content Generator 2026 Hero Banner"
+        currentPath="/ai-blog-writer"
       >
         <InstructionsCard
           steps={[

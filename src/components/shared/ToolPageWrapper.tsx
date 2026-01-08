@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { Breadcrumb } from "./Breadcrumb";
+import { RelatedTools } from "./RelatedTools";
 import { AdNativeBanner, AdRectangle } from "../ads";
 
 interface ToolPageWrapperProps {
@@ -10,9 +11,10 @@ interface ToolPageWrapperProps {
   children: ReactNode;
   heroImage?: string;
   heroAlt?: string;
+  currentPath?: string;
 }
 
-export function ToolPageWrapper({ title, description, icon: Icon, children, heroImage, heroAlt }: ToolPageWrapperProps) {
+export function ToolPageWrapper({ title, description, icon: Icon, children, heroImage, heroAlt, currentPath }: ToolPageWrapperProps) {
   return (
     <div className="min-h-screen">
       {/* Premium Hero Banner */}
@@ -57,6 +59,9 @@ export function ToolPageWrapper({ title, description, icon: Icon, children, hero
           <div className="mt-8">
             {children}
           </div>
+
+          {/* Related Tools - Internal Linking for SEO */}
+          {currentPath && <RelatedTools currentPath={currentPath} />}
 
           {/* Ads below tool content */}
           <div className="mt-12">

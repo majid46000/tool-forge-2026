@@ -79,6 +79,12 @@ export default function TikTokDownloader() {
         description="Download TikTok videos without watermark for free. Fast, safe, and easy – best TikTok downloader 2026."
         canonical="/tiktok-downloader"
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "TikTok Tools", url: "/" },
+          { name: "TikTok Downloader", url: "/tiktok-downloader" }
+        ]}
+        imageAlt="TikTok Downloader No Watermark Free 2026"
       />
       
       <ToolPageWrapper
@@ -87,6 +93,7 @@ export default function TikTokDownloader() {
         icon={Video}
         heroImage={heroTikTokDownloader}
         heroAlt="TikTok Downloader No Watermark Free 2026 Hero Banner"
+        currentPath="/tiktok-downloader"
       >
         <InstructionsCard
           steps={[
