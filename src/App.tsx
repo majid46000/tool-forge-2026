@@ -8,7 +8,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-// Lazy load tool pages for better initial bundle size
+// Lazy load pages
 const ChatGPTAI = lazy(() => import("./pages/tools/ChatGPTAI"));
 const TikTokDownloader = lazy(() => import("./pages/tools/TikTokDownloader"));
 const TikTokHashtagFinder = lazy(() => import("./pages/tools/TikTokHashtagFinder"));
@@ -21,8 +21,9 @@ const PDFDocConverter = lazy(() => import("./pages/tools/PDFDocConverter"));
 const TrendingContentFinder = lazy(() => import("./pages/tools/TrendingContentFinder"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms = lazy(() => import("./pages/Terms"));
+const HubPage = lazy(() => import("./pages/HubPage"));
+const SubToolPage = lazy(() => import("./pages/SubToolPage"));
 
-// Minimal loading fallback
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
     <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -36,11 +37,8 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Helmet>
-          <title>ToolHub 2026 – Free Online Tools for AI, SEO & Social Media</title>
-          <meta
-            name="description"
-            content="Access 10 powerful free online tools for 2026. AI content generation, TikTok downloads, SEO keywords, social media optimization, and more. No signup required."
-          />
+          <title>ToolHub 2026 – 1000+ Free Online Tools for AI, SEO & Social Media</title>
+          <meta name="description" content="Access 1000+ powerful free online tools for 2026. AI content generation, TikTok downloads, SEO keywords, social media optimization, and more. No signup required." />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="canonical" href="https://toolhub2026.com" />
         </Helmet>
@@ -50,6 +48,8 @@ const App = () => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/hub/:hubId" element={<HubPage />} />
+              <Route path="/hub/:hubId/:toolId" element={<SubToolPage />} />
               <Route path="/chatgpt-ai" element={<ChatGPTAI />} />
               <Route path="/tiktok-downloader" element={<TikTokDownloader />} />
               <Route path="/tiktok-hashtag-finder" element={<TikTokHashtagFinder />} />
