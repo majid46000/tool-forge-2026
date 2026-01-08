@@ -1,20 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
-import { ToolCard } from "@/components/shared/ToolCard";
+import { HubCard } from "@/components/shared/HubCard";
 import { SEOHead } from "@/components/shared/SEOHead";
+import { FreeBanner } from "@/components/shared/FreeBanner";
 import { Button } from "@/components/ui/button";
 import { AdNativeBanner, AdRectangle } from "@/components/ads";
+import { toolHubs, getTotalTools, getAIToolCount, getClientToolCount } from "@/data/toolHubs";
 
 import {
-  MessageSquare,
-  Video,
-  Hash,
-  Palette,
-  Search,
-  Music,
-  FileText,
-  Type,
-  FileUp,
-  TrendingUp,
   ArrowRight,
   Sparkles,
   Zap,
@@ -24,14 +16,9 @@ import {
   Users,
 } from "lucide-react";
 
-const tools = [
-  {
-    title: "ChatGPT AI",
-    description: "Free ChatGPT alternative 2026 – generate high-quality articles and text instantly using AI.",
-    icon: MessageSquare,
-    path: "/chatgpt-ai",
-    popular: true,
-  },
+const totalTools = getTotalTools();
+const aiTools = getAIToolCount();
+const clientTools = getClientToolCount();
   {
     title: "TikTok Downloader",
     description: "Download TikTok videos without watermark – fast, free, and safe for 2026.",
@@ -230,7 +217,7 @@ const Index = () => {
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto animate-fade-in">
           <div className="inline-flex items-center gap-2 glass px-6 py-3 rounded-full text-sm font-medium mb-8">
             <Sparkles className="h-4 w-4 text-cyan-400" aria-hidden="true" />
-            <span className="text-foreground/90">10 Free AI & Social Media Tools 2026</span>
+            <span className="text-foreground/90">{totalTools.toLocaleString()}+ Free Tools in 10 Hubs</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
@@ -302,31 +289,34 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tools Grid */}
+      {/* Tool Hubs Grid */}
       <section id="tools" className="py-20" aria-labelledby="tools-heading">
         <div className="container">
           <div className="text-center mb-16 animate-fade-in">
             <h2 id="tools-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Free AI Tools & TikTok Downloaders
+              10 Tool Hubs – {totalTools.toLocaleString()}+ Free Tools
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              The best free AI content generator, TikTok tools, SEO keyword finder, and social media tools – all in one place.
+            <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+              {clientTools.toLocaleString()}+ client-side tools (instant, unlimited) + {aiTools} AI-powered tools (30/day free)
             </p>
+            <div className="inline-flex items-center gap-2 text-emerald-400 font-semibold">
+              <Shield className="h-5 w-5" />
+              Zero cost to you – 100% FREE forever
+            </div>
           </div>
           
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {tools.map((tool, index) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {toolHubs.map((hub, index) => (
               <div
-                key={tool.path}
+                key={hub.id}
                 className="animate-fade-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <ToolCard {...tool} />
+                <HubCard hub={hub} />
               </div>
             ))}
           </div>
           
-          {/* Ads section */}
           <div className="mt-16">
             <AdNativeBanner />
             <AdRectangle />
