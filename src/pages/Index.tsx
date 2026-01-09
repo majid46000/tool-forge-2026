@@ -19,63 +19,6 @@ import {
 const totalTools = getTotalTools();
 const aiTools = getAIToolCount();
 const clientTools = getClientToolCount();
-  {
-    title: "TikTok Downloader",
-    description: "Download TikTok videos without watermark – fast, free, and safe for 2026.",
-    icon: Video,
-    path: "/tiktok-downloader",
-    popular: true,
-  },
-  {
-    title: "AI Blog Writer",
-    description: "Best free AI blog writer 2026 – create SEO-optimized blog posts automatically.",
-    icon: FileText,
-    path: "/ai-blog-writer",
-    popular: true,
-  },
-  {
-    title: "TikTok Hashtag Finder",
-    description: "Free TikTok tools 2026 – discover trending hashtags to boost engagement.",
-    icon: Hash,
-    path: "/tiktok-hashtag-finder",
-  },
-  {
-    title: "Canva Template Generator",
-    description: "Generate professional social media templates and logos quickly for free.",
-    icon: Palette,
-    path: "/canva-template-generator",
-  },
-  {
-    title: "SEO Keyword Generator",
-    description: "Find high-ranking SEO keywords for your website and marketing in 2026.",
-    icon: Search,
-    path: "/seo-keyword-generator",
-  },
-  {
-    title: "Video to MP3 Converter",
-    description: "Convert any video to MP3 audio files – fast and free online converter.",
-    icon: Music,
-    path: "/video-to-mp3-converter",
-  },
-  {
-    title: "Social Media Captions",
-    description: "AI caption generator 2026 – create engaging captions for Instagram, TikTok & more.",
-    icon: Type,
-    path: "/social-media-caption-generator",
-  },
-  {
-    title: "PDF / DOC Converter",
-    description: "Convert documents between PDF and DOC formats quickly and for free.",
-    icon: FileUp,
-    path: "/pdf-doc-converter",
-  },
-  {
-    title: "Trending Content Finder",
-    description: "Discover viral TikTok & YouTube content to boost your social media strategy.",
-    icon: TrendingUp,
-    path: "/trending-content-finder",
-  },
-];
 
 const features = [
   {
