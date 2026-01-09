@@ -52,13 +52,13 @@ export const toolHubs: ToolHub[] = [
     path: "/hub/ai-content",
     color: "from-purple-500 to-pink-500",
     subTools: [
-      // AI Tools (limited)
+      // AI Tools (limited - 5 AI tools)
       { id: "chatgpt-ai", name: "ChatGPT AI Alternative", description: "Free ChatGPT alternative 2026", icon: MessageSquare, type: "ai", category: "AI Writing" },
       { id: "ai-blog-writer", name: "AI Blog Writer", description: "Generate SEO blog posts with AI", icon: FileText, type: "ai", category: "AI Writing" },
       { id: "ai-story-generator", name: "AI Story Generator", description: "Create creative stories with AI", icon: Wand2, type: "ai", category: "AI Writing" },
       { id: "ai-poem-writer", name: "AI Poem Writer", description: "Generate poems and poetry", icon: Heart, type: "ai", category: "AI Writing" },
       { id: "ai-email-writer", name: "AI Email Writer", description: "Professional email templates", icon: Mail, type: "ai", category: "AI Writing" },
-      // Client-side tools (majority)
+      // Client-side tools (95+ tools)
       ...generateClientTools("text", "Text Tools", Type, [
         "Word Counter", "Character Counter", "Line Counter", "Paragraph Counter",
         "Sentence Counter", "Reading Time Calculator", "Speaking Time Calculator",
@@ -90,7 +90,9 @@ export const toolHubs: ToolHub[] = [
         "Em Dash Converter", "En Dash Converter", "Typography Fixer",
         "Markdown to Text", "Text to Markdown", "HTML to Text", "Text to HTML",
         "JSON to Text", "Text to JSON", "CSV to Text", "Text to CSV",
-        "XML to Text", "Text to XML", "YAML to Text", "Text to YAML"
+        "XML to Text", "Text to XML", "YAML to Text", "Text to YAML",
+        "Hashtag Generator", "Bio Generator", "Slogan Generator", "Tagline Creator",
+        "Headline Generator", "Hook Generator", "CTA Generator", "Bullet Points Maker"
       ]),
     ],
   },
@@ -105,31 +107,40 @@ export const toolHubs: ToolHub[] = [
       // AI Tools
       { id: "social-caption-gen", name: "AI Caption Generator", description: "Generate viral captions", icon: Type, type: "ai", category: "Captions" },
       { id: "hashtag-ai", name: "AI Hashtag Generator", description: "Smart hashtag suggestions", icon: Hash, type: "ai", category: "Hashtags" },
-      // Client-side
+      // Client-side (100+ tools)
       ...generateClientTools("social", "Social Media", Share2, [
         "TikTok Video Downloader", "TikTok Hashtag Finder", "TikTok Analytics Calculator",
         "TikTok Username Generator", "TikTok Bio Generator", "TikTok Caption Ideas",
         "TikTok Sound Finder", "TikTok Trend Tracker", "TikTok Engagement Calculator",
         "TikTok Best Time to Post", "TikTok Follower Counter", "TikTok Views Calculator",
+        "TikTok Duet Ideas", "TikTok Challenge Generator", "TikTok Niche Finder",
         "Instagram Bio Generator", "Instagram Username Checker", "Instagram Font Generator",
         "Instagram Hashtag Generator", "Instagram Caption Generator", "Instagram Story Ideas",
         "Instagram Reels Ideas", "Instagram Grid Planner", "Instagram Analytics",
         "Instagram Engagement Rate", "Instagram Followers Tracker", "Instagram Best Time",
+        "Instagram Filter Finder", "Instagram Aesthetic Planner", "Instagram Collab Finder",
         "YouTube Title Generator", "YouTube Description Generator", "YouTube Tag Generator",
         "YouTube Thumbnail Ideas", "YouTube Channel Name Generator", "YouTube Analytics",
         "YouTube Subscribers Calculator", "YouTube Money Calculator", "YouTube Timestamp Generator",
         "YouTube Embed Generator", "YouTube URL Shortener", "YouTube Video Ideas",
+        "YouTube Shorts Ideas", "YouTube SEO Checker", "YouTube Keyword Tool",
         "Twitter Bio Generator", "Twitter Username Checker", "Twitter Thread Maker",
         "Twitter Character Counter", "Twitter Hashtag Generator", "Twitter Analytics",
+        "Twitter Poll Ideas", "Twitter Trend Finder", "Twitter Engagement Calculator",
         "LinkedIn Bio Generator", "LinkedIn Headline Generator", "LinkedIn Post Generator",
         "LinkedIn Hashtag Finder", "LinkedIn Connection Templates", "LinkedIn Analytics",
+        "LinkedIn Summary Writer", "LinkedIn Skill Endorser", "LinkedIn Job Title Generator",
         "Facebook Post Generator", "Facebook Bio Ideas", "Facebook Page Name Generator",
         "Facebook Hashtag Finder", "Facebook Analytics Calculator", "Facebook Post Scheduler",
+        "Facebook Group Name Ideas", "Facebook Event Name Generator", "Facebook Ad Copy Helper",
         "Pinterest Pin Description", "Pinterest Board Name Generator", "Pinterest Keyword Tool",
         "Pinterest Analytics", "Pinterest Pin Title Generator", "Pinterest SEO Helper",
+        "Pinterest Idea Generator", "Pinterest Niche Finder", "Pinterest Trend Tracker",
         "Snapchat Username Generator", "Snapchat Filter Ideas", "Snapchat Story Ideas",
         "Discord Server Name Generator", "Discord Bio Generator", "Discord Role Generator",
+        "Discord Bot Ideas", "Discord Channel Name Ideas", "Discord Server Description",
         "Twitch Username Generator", "Twitch Bio Generator", "Twitch Panel Generator",
+        "Twitch Emote Ideas", "Twitch Stream Title Generator", "Twitch Category Finder",
         "Threads Bio Generator", "Threads Username Ideas", "Threads Post Ideas",
         "Social Media Bio Link Generator", "Multi-Platform Post Scheduler", "Cross-Platform Analytics",
         "Viral Content Analyzer", "Engagement Rate Calculator", "Follower Growth Tracker",
@@ -152,7 +163,7 @@ export const toolHubs: ToolHub[] = [
       // AI Tools
       { id: "seo-keywords-ai", name: "AI Keyword Generator", description: "AI-powered keyword research", icon: Search, type: "ai", category: "SEO" },
       { id: "meta-ai", name: "AI Meta Description", description: "Generate SEO meta descriptions", icon: FileText, type: "ai", category: "SEO" },
-      // Client-side
+      // Client-side (100+ tools)
       ...generateClientTools("seo", "SEO Tools", Search, [
         "SEO Keyword Generator", "Long-tail Keyword Finder", "LSI Keyword Generator",
         "Keyword Density Checker", "Keyword Difficulty Analyzer", "Keyword Ranking Checker",
@@ -186,7 +197,10 @@ export const toolHubs: ToolHub[] = [
         "CPM Calculator", "CTR Calculator", "Bounce Rate Analyzer",
         "A/B Test Calculator", "Statistical Significance", "Sample Size Calculator",
         "Email Subject Line Tester", "Email Preview Tool", "Spam Score Checker",
-        "Landing Page Analyzer", "CTA Generator", "Value Proposition Generator"
+        "Landing Page Analyzer", "CTA Generator", "Value Proposition Generator",
+        "Ad Copy Generator", "PPC Keyword Tool", "Quality Score Checker",
+        "Campaign Budget Calculator", "ROAS Calculator", "Customer Lifetime Value",
+        "Funnel Conversion Calculator", "Lead Scoring Helper", "Marketing Mix Modeler"
       ]),
     ],
   },
@@ -200,7 +214,8 @@ export const toolHubs: ToolHub[] = [
     subTools: [
       // AI Tools
       { id: "ai-image-gen", name: "AI Image Generator", description: "Create images with AI", icon: Wand2, type: "ai", category: "AI Design" },
-      // Client-side
+      { id: "ai-logo-gen", name: "AI Logo Generator", description: "Generate logos with AI", icon: Palette, type: "ai", category: "AI Design" },
+      // Client-side (100+ tools)
       ...generateClientTools("image", "Image Tools", Image, [
         "Image Resizer", "Image Cropper", "Image Rotator", "Image Flipper",
         "Image Compressor", "JPEG Compressor", "PNG Compressor", "WebP Converter",
@@ -233,7 +248,9 @@ export const toolHubs: ToolHub[] = [
         "Shape Overlay", "Sticker Adder", "Emoji Overlay",
         "Image Splitter", "Image Joiner", "Before/After Slider",
         "QR Code Generator", "Barcode Generator", "Data Matrix Generator",
-        "Icon Finder Helper", "Stock Photo Finder", "Free Image Search"
+        "Icon Finder Helper", "Stock Photo Finder", "Free Image Search",
+        "Avatar Maker", "Profile Picture Maker", "Thumbnail Creator",
+        "Banner Maker", "Header Image Creator", "Featured Image Generator"
       ]),
     ],
   },
@@ -245,6 +262,9 @@ export const toolHubs: ToolHub[] = [
     path: "/hub/video-audio",
     color: "from-red-500 to-pink-500",
     subTools: [
+      // AI Tools
+      { id: "ai-voice-gen", name: "AI Voice Generator", description: "Generate voiceovers with AI", icon: Mic, type: "ai", category: "AI Audio" },
+      // Client-side (100+ tools)
       ...generateClientTools("video", "Video Tools", Video, [
         "Video to MP3 Converter", "Video to GIF Converter", "Video Trimmer",
         "Video Merger", "Video Splitter", "Video Compressor",
@@ -275,7 +295,10 @@ export const toolHubs: ToolHub[] = [
         "Podcast Editor Helper", "Audio Mixer", "Multi-Track Editor",
         "BPM Counter", "Key Detector Helper", "Metronome",
         "Tuner Helper", "Chord Finder", "Scale Generator",
-        "Beat Maker Helper", "Drum Pattern Generator", "Melody Generator"
+        "Beat Maker Helper", "Drum Pattern Generator", "Melody Generator",
+        "Voice Changer", "Autotune Helper", "Vocal Remover Helper",
+        "Karaoke Maker", "Instrumental Separator", "Stem Splitter",
+        "Audio Spectrum Visualizer", "Waveform Generator", "Audio Graph Maker"
       ]),
     ],
   },
@@ -287,6 +310,9 @@ export const toolHubs: ToolHub[] = [
     path: "/hub/documents",
     color: "from-blue-500 to-indigo-500",
     subTools: [
+      // AI Tools
+      { id: "ai-resume-writer", name: "AI Resume Writer", description: "Generate professional resumes with AI", icon: FileText, type: "ai", category: "AI Documents" },
+      // Client-side (100+ tools)
       ...generateClientTools("docs", "Document Tools", FileText, [
         "PDF to Word Converter", "Word to PDF Converter", "PDF to Excel",
         "Excel to PDF", "PDF to PowerPoint", "PowerPoint to PDF",
@@ -321,7 +347,8 @@ export const toolHubs: ToolHub[] = [
         "Expense Report Templates", "Budget Templates", "Financial Report",
         "Timesheet Templates", "Attendance Tracker", "Work Log Templates",
         "Meeting Minutes Templates", "Agenda Generator", "Notes Templates",
-        "Mind Map Helper", "Flowchart Helper", "Org Chart Generator"
+        "Mind Map Helper", "Flowchart Helper", "Org Chart Generator",
+        "Form Builder", "Survey Creator", "Questionnaire Maker"
       ]),
     ],
   },
@@ -369,7 +396,10 @@ export const toolHubs: ToolHub[] = [
         "Concrete Calculator", "Brick Calculator", "Lumber Calculator",
         "Cooking Converter", "Recipe Scaler", "Ingredient Converter",
         "Random Number Generator", "Random Name Picker", "Dice Roller",
-        "Coin Flipper", "Lottery Number Generator", "Password Generator"
+        "Coin Flipper", "Lottery Number Generator", "Password Generator",
+        "Probability Calculator", "Statistics Calculator", "Standard Deviation",
+        "Mean Calculator", "Median Calculator", "Mode Calculator",
+        "Variance Calculator", "Correlation Calculator", "Regression Calculator"
       ]),
     ],
   },
@@ -420,7 +450,8 @@ export const toolHubs: ToolHub[] = [
         "Git Commands Helper", "Git Ignore Generator", "Git README Generator",
         "NPM Package Analyzer", "Package.json Generator", "Dependency Checker",
         "Docker Compose Helper", "Kubernetes YAML Helper", "Terraform Helper",
-        "Environment Variable Manager", "Config File Generator", ".env Generator"
+        "Environment Variable Manager", "Config File Generator", ".env Generator",
+        "Code Obfuscator", "Code Beautifier", "Minifier Tool"
       ]),
     ],
   },
@@ -467,7 +498,8 @@ export const toolHubs: ToolHub[] = [
         "Malware Scanner Info", "Virus Total Helper", "File Hash Checker",
         "Phishing Detector Info", "URL Scanner Info", "Link Safety Checker",
         "Data Breach Checker Info", "Email Leak Checker Info", "Password Breach Checker",
-        "Privacy Policy Generator", "Terms of Service Generator", "Cookie Policy Generator"
+        "Privacy Policy Generator", "Terms of Service Generator", "Cookie Policy Generator",
+        "GDPR Compliance Checker", "CCPA Helper", "Security Audit Checklist"
       ]),
     ],
   },
@@ -517,7 +549,8 @@ export const toolHubs: ToolHub[] = [
         "ZIP Extractor Info", "File Compressor Info", "Archive Manager Info",
         "Download Manager Info", "Upload Helper", "File Sharing Info",
         "Translation Helper", "Dictionary", "Thesaurus",
-        "Weather Widget Info", "Forecast Viewer", "Weather Converter"
+        "Weather Widget Info", "Forecast Viewer", "Weather Converter",
+        "Spelling Bee Helper", "Word Scrambler", "Crossword Helper"
       ]),
     ],
   },
