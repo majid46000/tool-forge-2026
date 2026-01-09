@@ -127,6 +127,8 @@ const Index = () => {
         jsonLd={jsonLd}
       />
       
+      <FreeBanner />
+      
       {/* Premium Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Layers */}
