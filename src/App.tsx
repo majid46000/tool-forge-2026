@@ -23,6 +23,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const HubPage = lazy(() => import("./pages/HubPage"));
 const SubToolPage = lazy(() => import("./pages/SubToolPage"));
+const ToolForge2026 = lazy(() => import("./pages/ToolForge2026"));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -48,6 +49,7 @@ const App = () => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/tool-forge" element={<ToolForge2026 />} />
               <Route path="/hub/:hubId" element={<HubPage />} />
               <Route path="/hub/:hubId/:toolId" element={<SubToolPage />} />
               <Route path="/chatgpt-ai" element={<ChatGPTAI />} />
