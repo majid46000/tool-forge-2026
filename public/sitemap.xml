@@ -2085,4 +2085,7 @@
   <url>
     <loc>https://tool-forge-2026.lovable.app/hub/security/security-20</loc>
     <lastmod>2026-01-10</lastmod>
-    <changef
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
