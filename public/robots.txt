@@ -1,4 +1,4 @@
-# ToolHub 2026 - robots.txt
+# ToolForge 2026 - robots.txt
 # Best Free AI Tools for Content, SEO & TikTok
 # Optimized for 2026 crawlers including AI search engines
 
@@ -71,4 +71,4 @@ Allow: /sitemap.xml
 Allow: /robots.txt
 
 # Sitemap location for fast discovery
-Sitemap: https://toolhub2026.com/sitemap.xml
+Sitemap: https://tool-forge-2026.lovable.app/sitemap.xml
