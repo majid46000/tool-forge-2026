@@ -32,953 +32,313 @@ export interface ToolHub {
 }
 
 // ============================================
-// MASSIVE TOOL GENERATOR - 1000+ per hub
+// AI CONTENT HUB - Curated Essential Tools
 // ============================================
-
-// Generate tool variations with prefixes/suffixes
-const variations = [
-  "v1", "v2", "Pro", "Plus", "Lite", "Fast", "Ultra", "Quick", "Smart", "Easy",
-  "Advanced", "Simple", "Basic", "Premium", "Free", "Online", "Instant", "Auto",
-  "2026", "New", "Best", "Top", "Super", "Mega", "Mini", "Micro", "Nano"
-];
-
-const platforms = [
-  "TikTok", "Instagram", "YouTube", "Twitter", "LinkedIn", "Facebook", "Pinterest",
-  "Snapchat", "Discord", "Twitch", "Threads", "Reddit", "WhatsApp", "Telegram"
-];
-
-const formats = [
-  "PDF", "Word", "Excel", "PowerPoint", "CSV", "JSON", "XML", "HTML", "Markdown",
-  "TXT", "RTF", "DOCX", "XLSX", "PPTX", "JPG", "PNG", "GIF", "SVG", "WebP"
-];
-
-const sizes = ["Small", "Medium", "Large", "XL", "XXL", "Custom", "Full", "Half", "Quarter"];
-const styles = ["Modern", "Classic", "Minimal", "Bold", "Creative", "Professional", "Casual", "Elegant"];
-const speeds = ["Fast", "Quick", "Instant", "Rapid", "Express", "Lightning", "Turbo"];
-
-// Generate client tools with variations
-const generateMassiveClientTools = (
-  prefix: string,
-  category: string,
-  icon: LucideIcon,
-  baseTools: string[]
-): SubTool[] => {
-  const tools: SubTool[] = [];
-  let counter = 0;
+const aiContentTools: SubTool[] = [
+  // AI Tools (keep best ones only)
+  { id: "chatgpt-ai", name: "ChatGPT AI Alternative", description: "Free ChatGPT alternative - generate any text with AI", icon: MessageSquare, type: "ai", category: "AI Writing" },
+  { id: "ai-blog-writer", name: "AI Blog Writer", description: "Generate SEO-optimized blog posts with AI", icon: FileText, type: "ai", category: "AI Writing" },
+  { id: "ai-summary-generator", name: "AI Summary Generator", description: "Summarize long texts instantly", icon: FileText, type: "ai", category: "AI Writing" },
   
-  // Add all base tools
-  baseTools.forEach(name => {
-    tools.push({
-      id: `${prefix}-${++counter}`,
-      name,
-      description: `Free ${name.toLowerCase()} tool - instant results, no signup required.`,
-      icon,
-      type: "client",
-      category,
-    });
-    
-    // Add variations of popular tools
-    if (counter <= 100) {
-      variations.slice(0, 5).forEach(v => {
-        tools.push({
-          id: `${prefix}-${++counter}`,
-          name: `${name} ${v}`,
-          description: `${v} version of ${name.toLowerCase()} - enhanced features, always free.`,
-          icon,
-          type: "client",
-          category,
-        });
-      });
-    }
-  });
+  // Text Processing (one tool per function)
+  { id: "word-counter", name: "Word Counter", description: "Count words, characters, sentences, and paragraphs", icon: Type, type: "client", category: "Text Tools" },
+  { id: "text-case-converter", name: "Text Case Converter", description: "Convert text to uppercase, lowercase, title case, and more", icon: Type, type: "client", category: "Text Tools" },
+  { id: "duplicate-line-remover", name: "Duplicate Line Remover", description: "Remove duplicate and empty lines from text", icon: Type, type: "client", category: "Text Tools" },
+  { id: "text-reverser", name: "Text Reverser", description: "Reverse text, words, or lines instantly", icon: RefreshCw, type: "client", category: "Text Tools" },
+  { id: "find-replace", name: "Find & Replace", description: "Find and replace text with regex support", icon: Search, type: "client", category: "Text Tools" },
+  { id: "lorem-ipsum", name: "Lorem Ipsum Generator", description: "Generate placeholder text for designs", icon: FileText, type: "client", category: "Text Tools" },
   
-  return tools;
-};
-
-// ============================================
-// AI CONTENT HUB - 1000+ Tools
-// ============================================
-const aiContentBaseTools = [
-  // Text Processing
-  "Word Counter", "Character Counter", "Line Counter", "Paragraph Counter", "Sentence Counter",
-  "Reading Time Calculator", "Speaking Time Calculator", "Text Case Converter", "Uppercase Converter",
-  "Lowercase Converter", "Title Case Converter", "Sentence Case Converter", "Alternating Case",
-  "Reverse Text", "Text Repeater", "Remove Duplicate Lines", "Remove Empty Lines", "Sort Lines",
-  "Shuffle Lines", "Number Lines", "Add Prefix Suffix", "Find Replace", "Text Trimmer",
-  "Extra Space Remover", "Tab Space Converter", "Space Tab Converter", "Text to Slug",
-  "Lorem Ipsum Generator", "Random Word Generator", "Random Sentence Generator",
-  "Random Paragraph Generator", "Placeholder Text", "Dummy Text Creator",
+  // Encoding/Decoding (one tool per category)
+  { id: "base64-encoder", name: "Base64 Encoder/Decoder", description: "Encode and decode Base64 strings", icon: Code, type: "client", category: "Encoding" },
+  { id: "url-encoder", name: "URL Encoder/Decoder", description: "Encode and decode URLs", icon: Link, type: "client", category: "Encoding" },
+  { id: "html-encoder", name: "HTML Entity Encoder", description: "Encode and decode HTML entities", icon: Code, type: "client", category: "Encoding" },
+  { id: "morse-code", name: "Morse Code Translator", description: "Convert text to and from Morse code", icon: Mic, type: "client", category: "Encoding" },
   
-  // Encoding/Decoding
-  "Base64 Encoder", "Base64 Decoder", "URL Encoder", "URL Decoder", "HTML Encoder",
-  "HTML Decoder", "Unicode Converter", "UTF8 Encoder", "ASCII Converter", "Binary Encoder",
-  "Binary Decoder", "Hex Encoder", "Hex Decoder", "Octal Converter", "Decimal Converter",
-  
-  // Encryption
-  "ROT13 Encoder", "Caesar Cipher", "Vigenere Cipher", "Atbash Cipher", "XOR Cipher",
-  "Morse Code Translator", "Pig Latin Translator", "NATO Alphabet", "Backwards Text",
-  
-  // Formatting
-  "Text Formatter", "Markdown Formatter", "HTML Formatter", "JSON Text", "XML Text",
-  "CSV Formatter", "Text Cleaner", "Whitespace Normalizer", "Smart Quotes",
-  
-  // Generators
-  "Hashtag Generator", "Bio Generator", "Slogan Generator", "Tagline Creator",
-  "Headline Generator", "Hook Generator", "CTA Generator", "Bullet Points Maker",
-  "Quote Generator", "Joke Generator", "Riddle Generator", "Pun Generator",
-  "Anagram Solver", "Acronym Generator", "Abbreviation Expander",
-  "Name Generator", "Username Generator", "Nickname Generator", "Team Name Generator",
-  "Band Name Generator", "Business Name Generator", "Domain Name Generator",
-  "Product Name Generator", "App Name Generator", "Podcast Name Generator",
-  "Book Title Generator", "Song Title Generator", "Movie Title Generator",
-  "Character Name Generator", "Fantasy Name Generator", "Sci-Fi Name Generator",
+  // Generators (one per function)
+  { id: "username-generator", name: "Username Generator", description: "Generate unique usernames for any platform", icon: Users, type: "client", category: "Generators" },
+  { id: "business-name-generator", name: "Business Name Generator", description: "Generate creative business and brand names", icon: Tag, type: "client", category: "Generators" },
+  { id: "slogan-generator", name: "Slogan Generator", description: "Create catchy slogans and taglines", icon: Type, type: "client", category: "Generators" },
   
   // Analysis
-  "Readability Score", "Flesch Reading Ease", "Keyword Density", "Text Statistics",
-  "Sentiment Analyzer", "Tone Detector", "Grammar Helper", "Spell Check Helper",
-  "Plagiarism Helper", "Text Comparison", "Diff Checker", "Similarity Checker",
+  { id: "readability-score", name: "Readability Score", description: "Check text readability with Flesch-Kincaid", icon: BarChart3, type: "client", category: "Analysis" },
+  { id: "keyword-density", name: "Keyword Density Checker", description: "Analyze keyword frequency in text", icon: Search, type: "client", category: "Analysis" },
   
-  // Creative
-  "ASCII Art Generator", "Fancy Text Generator", "Zalgo Text", "Bubble Text",
-  "Small Text Generator", "Wide Text Generator", "Mirror Text", "Strikethrough Text",
-  "Underline Text", "Bold Text Generator", "Italic Text Generator", "Monospace Text",
-  "Emoji Text Generator", "Symbol Text", "Font Changer", "Text Art Generator",
-  "Word Cloud Generator", "Text Banner", "Text Logo Maker", "Text Signature",
-];
-
-// Expand to 1000+ with variations
-const aiContentTools: SubTool[] = [
-  // AI Tools (limited to 10)
-  { id: "chatgpt-ai", name: "ChatGPT AI Alternative", description: "Free ChatGPT alternative 2026", icon: MessageSquare, type: "ai", category: "AI Writing" },
-  { id: "ai-blog-writer", name: "AI Blog Writer", description: "Generate SEO blog posts with AI", icon: FileText, type: "ai", category: "AI Writing" },
-  { id: "ai-story-generator", name: "AI Story Generator", description: "Create creative stories with AI", icon: Wand2, type: "ai", category: "AI Writing" },
-  { id: "ai-poem-writer", name: "AI Poem Writer", description: "Generate poems and poetry", icon: Heart, type: "ai", category: "AI Writing" },
-  { id: "ai-email-writer", name: "AI Email Writer", description: "Professional email templates", icon: Mail, type: "ai", category: "AI Writing" },
-  { id: "ai-article-rewriter", name: "AI Article Rewriter", description: "Rewrite content with AI", icon: RefreshCw, type: "ai", category: "AI Writing" },
-  { id: "ai-summary-generator", name: "AI Summary Generator", description: "Summarize long texts", icon: FileText, type: "ai", category: "AI Writing" },
-  { id: "ai-title-generator", name: "AI Title Generator", description: "Generate catchy titles", icon: Type, type: "ai", category: "AI Writing" },
-  ...generateMassiveClientTools("text", "Text Tools", Type, aiContentBaseTools),
+  // Creative Text
+  { id: "fancy-text-generator", name: "Fancy Text Generator", description: "Create stylish text with special fonts", icon: Type, type: "client", category: "Creative" },
+  { id: "ascii-art-generator", name: "ASCII Art Generator", description: "Convert text to ASCII art", icon: Image, type: "client", category: "Creative" },
 ];
 
 // ============================================
-// SOCIAL MEDIA HUB - 1000+ Tools
+// SOCIAL MEDIA HUB - Curated Essential Tools
 // ============================================
-const socialMediaBaseTools: string[] = [];
-
-// Generate platform-specific tools
-platforms.forEach(platform => {
-  socialMediaBaseTools.push(
-    `${platform} Video Downloader`, `${platform} Bio Generator`, `${platform} Username Generator`,
-    `${platform} Caption Generator`, `${platform} Hashtag Finder`, `${platform} Analytics Calculator`,
-    `${platform} Engagement Rate`, `${platform} Follower Counter`, `${platform} Best Time to Post`,
-    `${platform} Trend Tracker`, `${platform} Content Ideas`, `${platform} Post Scheduler`,
-    `${platform} Story Ideas`, `${platform} Reel Ideas`, `${platform} Thumbnail Maker`,
-    `${platform} Banner Creator`, `${platform} Profile Analyzer`, `${platform} Growth Tracker`,
-    `${platform} Competitor Analysis`, `${platform} Audience Insights`, `${platform} Performance Report`,
-    `${platform} SEO Helper`, `${platform} Algorithm Tips`, `${platform} Viral Content Finder`
-  );
-});
-
-// Add general social tools
-socialMediaBaseTools.push(
-  "Influencer Rate Calculator", "Sponsorship Calculator", "Brand Deal Calculator",
-  "CPM Calculator", "CPE Calculator", "ROI Calculator", "Media Kit Generator",
-  "Press Kit Builder", "Rate Card Generator", "Contract Templates",
-  "Collaboration Finder", "Brand Match Tool", "Pitch Generator",
-  "Engagement Tracker", "Growth Analytics", "Follower Demographics",
-  "Best Posting Time", "Content Calendar", "Schedule Planner",
-  "Cross-Platform Analytics", "Multi-Account Manager", "Social Audit",
-  "Hashtag Research Tool", "Trending Topics Finder", "Viral Post Analyzer",
-  "Caption Ideas Generator", "Hook Generator", "CTA Templates",
-  "Bio Link Generator", "Link in Bio Tool", "Linktree Alternative",
-  "Social Proof Generator", "Testimonial Collector", "Review Aggregator",
-  "Giveaway Generator", "Contest Rules Maker", "Prize Wheel Creator",
-  "Poll Creator", "Quiz Maker", "Survey Generator", "Q&A Templates",
-  "Live Stream Planner", "Streaming Schedule", "Chat Commands Generator",
-  "Emote Creator", "Sticker Maker", "GIF Generator", "Meme Creator"
-);
-
 const socialMediaTools: SubTool[] = [
   // AI Tools
-  { id: "social-caption-ai", name: "AI Caption Generator", description: "Generate viral captions with AI", icon: Type, type: "ai", category: "Captions" },
-  { id: "hashtag-ai", name: "AI Hashtag Generator", description: "Smart hashtag suggestions", icon: Hash, type: "ai", category: "Hashtags" },
-  { id: "content-ideas-ai", name: "AI Content Ideas", description: "Generate content ideas with AI", icon: Wand2, type: "ai", category: "Content" },
-  { id: "bio-writer-ai", name: "AI Bio Writer", description: "Create perfect bios with AI", icon: Users, type: "ai", category: "Profile" },
-  ...generateMassiveClientTools("social", "Social Media", Share2, socialMediaBaseTools),
+  { id: "social-caption-ai", name: "AI Caption Generator", description: "Generate viral captions for any platform", icon: Type, type: "ai", category: "Captions" },
+  { id: "hashtag-ai", name: "AI Hashtag Generator", description: "Find trending hashtags for your content", icon: Hash, type: "ai", category: "Hashtags" },
+  { id: "bio-writer-ai", name: "AI Bio Writer", description: "Create engaging profile bios", icon: Users, type: "ai", category: "Profile" },
+  
+  // Video Downloaders (one unified)
+  { id: "social-video-downloader", name: "Social Media Video Downloader", description: "Download videos from TikTok, Instagram, YouTube & more", icon: Download, type: "client", category: "Downloaders" },
+  
+  // Calculators (one unified)
+  { id: "engagement-calculator", name: "Engagement Rate Calculator", description: "Calculate engagement rate for any platform", icon: Calculator, type: "client", category: "Analytics" },
+  { id: "follower-growth", name: "Follower Growth Tracker", description: "Track and visualize follower growth", icon: TrendingUp, type: "client", category: "Analytics" },
+  
+  // Content Tools
+  { id: "best-posting-time", name: "Best Time to Post", description: "Find optimal posting times by platform", icon: Clock, type: "client", category: "Strategy" },
+  { id: "content-calendar", name: "Content Calendar", description: "Plan and schedule your content", icon: Calendar, type: "client", category: "Planning" },
+  { id: "link-in-bio", name: "Link in Bio Generator", description: "Create a custom link page for your bio", icon: Link, type: "client", category: "Profile" },
+  
+  // Influencer Tools
+  { id: "influencer-rate-calculator", name: "Influencer Rate Calculator", description: "Calculate fair rates for sponsorships", icon: DollarSign, type: "client", category: "Monetization" },
+  { id: "media-kit-generator", name: "Media Kit Generator", description: "Create professional media kits", icon: FileText, type: "client", category: "Monetization" },
 ];
 
 // ============================================
-// SEO & MARKETING HUB - 1000+ Tools
+// SEO & MARKETING HUB - Curated Essential Tools
 // ============================================
-const seoMarketingBaseTools = [
-  // Keyword Tools
-  "Keyword Generator", "Long-tail Keyword Finder", "LSI Keyword Generator", "Seed Keyword Expander",
-  "Keyword Clustering Tool", "Keyword Difficulty Analyzer", "Keyword Competition Checker",
-  "Keyword Ranking Tracker", "Keyword Gap Analyzer", "Keyword Intent Classifier",
-  "Question Keyword Finder", "People Also Ask Finder", "Related Searches Tool",
-  "Keyword Volume Estimator", "Keyword Trend Analyzer", "Seasonal Keyword Finder",
-  "Local Keyword Generator", "Voice Search Keywords", "Video Keyword Tool",
-  
-  // On-Page SEO
-  "Meta Title Generator", "Meta Description Generator", "Meta Tag Analyzer",
-  "SERP Preview Tool", "Rich Snippet Generator", "Schema Markup Generator",
-  "JSON-LD Generator", "Open Graph Generator", "Twitter Card Generator",
-  "Canonical URL Checker", "URL Slug Generator", "Permalink Optimizer",
-  "Heading Tag Analyzer", "Image Alt Text Generator", "Internal Link Analyzer",
-  "Content Length Checker", "Keyword Density Analyzer", "Readability Score",
-  
-  // Technical SEO
-  "Robots.txt Generator", "Sitemap Generator", "XML Sitemap Validator",
-  "Redirect Checker", "301 Redirect Generator", "Broken Link Finder",
-  "Page Speed Analyzer", "Mobile Friendly Checker", "Core Web Vitals",
-  "Crawl Budget Analyzer", "Index Status Checker", "Duplicate Content Finder",
-  "Hreflang Generator", "Multilingual SEO Tool", "International Targeting",
-  
-  // Link Building
-  "Backlink Analyzer", "Domain Authority Checker", "Page Authority Checker",
-  "Anchor Text Analyzer", "Link Profile Auditor", "Toxic Link Finder",
-  "Link Building Ideas", "Guest Post Finder", "Broken Link Builder",
-  "Competitor Backlinks", "Link Intersection Tool", "HARO Helper",
-  
-  // Content Marketing
-  "Content Gap Analyzer", "Topic Cluster Generator", "Content Ideas Tool",
-  "Blog Post Outline", "Article Structure Planner", "Content Calendar",
-  "Headline Analyzer", "Title Score Checker", "Clickbait Analyzer",
-  "Hook Generator", "Introduction Writer", "Conclusion Generator",
-  "Listicle Generator", "How-To Guide Maker", "Tutorial Planner",
-  
-  // Analytics & Tracking
-  "UTM Builder", "Campaign URL Generator", "Tracking Parameter Generator",
-  "Conversion Calculator", "ROI Calculator", "CPC Calculator",
-  "CPM Calculator", "CTR Calculator", "Bounce Rate Analyzer",
-  "A/B Test Calculator", "Statistical Significance", "Sample Size Calculator",
-  
-  // Email Marketing
-  "Email Subject Line Tester", "Email Preview Tool", "Spam Score Checker",
-  "Email Template Generator", "Newsletter Builder", "Drip Campaign Planner",
-  "Email Validator", "Email Verification", "Deliverability Checker",
-  
-  // PPC & Ads
-  "Ad Copy Generator", "PPC Keyword Tool", "Quality Score Checker",
-  "Ad Performance Calculator", "ROAS Calculator", "Budget Calculator",
-  "Bid Strategy Helper", "Ad Extensions Generator", "Negative Keywords",
-  
-  // Social Marketing
-  "Social Media Calendar", "Post Scheduler", "Engagement Calculator",
-  "Viral Potential Score", "Hashtag Analytics", "Influencer Finder",
-];
-
 const seoMarketingTools: SubTool[] = [
   // AI Tools
-  { id: "seo-keywords-ai", name: "AI Keyword Generator", description: "AI-powered keyword research", icon: Search, type: "ai", category: "SEO" },
-  { id: "meta-ai", name: "AI Meta Description", description: "Generate SEO meta descriptions", icon: FileText, type: "ai", category: "SEO" },
-  { id: "content-optimizer-ai", name: "AI Content Optimizer", description: "Optimize content for SEO", icon: TrendingUp, type: "ai", category: "SEO" },
-  { id: "ad-copy-ai", name: "AI Ad Copy Writer", description: "Generate ad copy with AI", icon: Type, type: "ai", category: "Marketing" },
-  ...generateMassiveClientTools("seo", "SEO Tools", Search, seoMarketingBaseTools),
+  { id: "seo-keywords-ai", name: "AI Keyword Generator", description: "AI-powered keyword research tool", icon: Search, type: "ai", category: "SEO" },
+  { id: "meta-ai", name: "AI Meta Description Writer", description: "Generate SEO meta descriptions with AI", icon: FileText, type: "ai", category: "SEO" },
+  { id: "ad-copy-ai", name: "AI Ad Copy Writer", description: "Generate high-converting ad copy", icon: Type, type: "ai", category: "Marketing" },
+  
+  // On-Page SEO
+  { id: "serp-preview", name: "SERP Preview Tool", description: "Preview how your page appears in Google", icon: Search, type: "client", category: "On-Page SEO" },
+  { id: "schema-generator", name: "Schema Markup Generator", description: "Create JSON-LD structured data", icon: Code, type: "client", category: "On-Page SEO" },
+  { id: "open-graph-generator", name: "Open Graph Generator", description: "Generate OG tags for social sharing", icon: Share2, type: "client", category: "On-Page SEO" },
+  
+  // Technical SEO
+  { id: "robots-txt-generator", name: "Robots.txt Generator", description: "Create robots.txt for search engines", icon: FileText, type: "client", category: "Technical SEO" },
+  { id: "sitemap-generator", name: "XML Sitemap Generator", description: "Generate XML sitemaps", icon: Globe, type: "client", category: "Technical SEO" },
+  { id: "redirect-checker", name: "Redirect Checker", description: "Check URL redirects and chains", icon: Link, type: "client", category: "Technical SEO" },
+  
+  // Analytics
+  { id: "utm-builder", name: "UTM Campaign Builder", description: "Build UTM tracking URLs", icon: Link, type: "client", category: "Analytics" },
+  { id: "ab-test-calculator", name: "A/B Test Calculator", description: "Calculate statistical significance", icon: Calculator, type: "client", category: "Analytics" },
+  { id: "cpc-calculator", name: "CPC/CPM Calculator", description: "Calculate cost per click and impressions", icon: DollarSign, type: "client", category: "Analytics" },
+  
+  // Email Marketing
+  { id: "email-subject-tester", name: "Email Subject Line Tester", description: "Test email subject line effectiveness", icon: Mail, type: "client", category: "Email" },
+  { id: "spam-score-checker", name: "Spam Score Checker", description: "Check if emails might hit spam", icon: AlertTriangle, type: "client", category: "Email" },
 ];
 
 // ============================================
-// IMAGE & DESIGN HUB - 1000+ Tools
+// IMAGE & DESIGN HUB - Curated Essential Tools
 // ============================================
-const imageDesignBaseTools = [
-  // Image Editing
-  "Image Resizer", "Image Cropper", "Image Rotator", "Image Flipper",
-  "Image Compressor", "Bulk Image Resizer", "Batch Image Converter",
-  "Aspect Ratio Calculator", "DPI Converter", "Pixel Calculator",
-  
-  // Format Conversion
-  "JPEG Compressor", "PNG Compressor", "WebP Converter", "HEIC to JPG",
-  "PNG to JPG", "JPG to PNG", "GIF to PNG", "SVG to PNG",
-  "WebP to PNG", "BMP to JPG", "TIFF Converter", "ICO Converter",
-  "Image to Base64", "Base64 to Image", "Image to PDF", "PDF to Image",
-  
-  // Color Tools
-  "Color Picker", "Color Palette Generator", "Color Scheme Generator",
-  "Gradient Generator", "CSS Gradient Maker", "Color Converter",
-  "HEX to RGB", "RGB to HEX", "HSL Converter", "CMYK Converter",
-  "Color Contrast Checker", "Accessibility Checker", "Color Blindness Simulator",
-  "Color Mixer", "Complementary Colors", "Analogous Colors",
-  "Triadic Colors", "Split Complementary", "Color Harmonies",
-  
-  // Icons & Favicons
-  "Favicon Generator", "App Icon Generator", "Logo Maker",
-  "Icon Resizer", "Icon Pack Creator", "SVG Icon Editor",
-  "PNG to ICO", "ICO Generator", "Favicon Checker",
-  
-  // Watermarks & Overlays
-  "Watermark Generator", "Image Watermark", "Text Watermark",
-  "Logo Overlay", "Signature Generator", "Copyright Stamp",
-  "Batch Watermark", "Remove Watermark Helper", "Transparent Watermark",
-  
-  // Social Media Graphics
-  "Meme Generator", "Quote Image Maker", "Social Post Maker",
-  "Instagram Post Maker", "Facebook Cover Maker", "Twitter Header Maker",
-  "YouTube Thumbnail Maker", "LinkedIn Banner Maker", "Pinterest Pin Maker",
-  "Story Maker", "Reel Cover Maker", "Carousel Creator",
-  
-  // Business Graphics
-  "Business Card Designer", "Flyer Maker", "Poster Designer",
-  "Infographic Maker", "Chart Image Maker", "Diagram Generator",
-  "Presentation Graphics", "Report Cover Maker", "Newsletter Header",
-  
-  // Mockups
-  "Mockup Generator", "Device Mockup Maker", "Screenshot Beautifier",
-  "T-Shirt Mockup", "Mug Mockup", "Book Cover Mockup",
-  "Phone Mockup", "Laptop Mockup", "Browser Mockup",
-  
-  // Effects & Filters
-  "Border Generator", "Frame Maker", "Collage Maker",
-  "Image Blur Tool", "Background Blur", "Pixelate Tool",
-  "Brightness Adjuster", "Contrast Adjuster", "Saturation Editor",
-  "Hue Shifter", "Exposure Adjuster", "Shadows Highlights",
-  "Black White Converter", "Sepia Filter", "Vintage Filter",
-  "Photo Filter Gallery", "Instagram Filters", "Retro Effects",
-  "Noise Generator", "Grain Effect", "Film Effect",
-  "Vignette Effect", "Light Leak", "Bokeh Generator",
-  
-  // Annotations
-  "Text on Image", "Image Annotator", "Arrow Drawer",
-  "Shape Overlay", "Sticker Adder", "Emoji Overlay",
-  "Image Splitter", "Image Joiner", "Before After Slider",
-  
-  // Codes
-  "QR Code Generator", "Barcode Generator", "Data Matrix Generator",
-  "QR Code Reader", "Barcode Reader", "QR Code Customizer",
-  
-  // Stock & Resources
-  "Icon Finder", "Stock Photo Finder", "Free Image Search",
-  "Avatar Maker", "Profile Picture Maker", "Thumbnail Creator",
-  "Banner Maker", "Header Creator", "Featured Image Generator",
-];
-
 const imageDesignTools: SubTool[] = [
   // AI Tools
-  { id: "ai-image-gen", name: "AI Image Generator", description: "Create images with AI", icon: Wand2, type: "ai", category: "AI Design" },
-  { id: "ai-logo-gen", name: "AI Logo Generator", description: "Generate logos with AI", icon: Palette, type: "ai", category: "AI Design" },
-  { id: "ai-bg-remover", name: "AI Background Remover", description: "Remove backgrounds with AI", icon: Scissors, type: "ai", category: "AI Design" },
-  { id: "ai-image-upscaler", name: "AI Image Upscaler", description: "Enhance image quality", icon: Maximize, type: "ai", category: "AI Design" },
-  ...generateMassiveClientTools("image", "Image Tools", Image, imageDesignBaseTools),
+  { id: "ai-image-gen", name: "AI Image Generator", description: "Create images from text prompts", icon: Wand2, type: "ai", category: "AI Design" },
+  { id: "ai-bg-remover", name: "AI Background Remover", description: "Remove image backgrounds instantly", icon: Scissors, type: "ai", category: "AI Design" },
+  
+  // Image Editing
+  { id: "image-resizer", name: "Image Resizer", description: "Resize images to any dimensions", icon: Maximize, type: "client", category: "Image Editing" },
+  { id: "image-compressor", name: "Image Compressor", description: "Compress images without quality loss", icon: Minimize, type: "client", category: "Image Editing" },
+  { id: "image-cropper", name: "Image Cropper", description: "Crop and rotate images", icon: Crop, type: "client", category: "Image Editing" },
+  
+  // Format Conversion
+  { id: "image-converter", name: "Image Format Converter", description: "Convert between JPG, PNG, WebP, GIF", icon: RefreshCw, type: "client", category: "Conversion" },
+  { id: "image-to-base64", name: "Image to Base64", description: "Convert images to Base64 strings", icon: Code, type: "client", category: "Conversion" },
+  
+  // Color Tools
+  { id: "color-picker", name: "Color Picker", description: "Pick colors from images or create palettes", icon: Palette, type: "client", category: "Colors" },
+  { id: "gradient-generator", name: "Gradient Generator", description: "Create CSS gradients visually", icon: Palette, type: "client", category: "Colors" },
+  { id: "contrast-checker", name: "Color Contrast Checker", description: "Check WCAG accessibility contrast", icon: Eye, type: "client", category: "Colors" },
+  
+  // Icons & Graphics
+  { id: "favicon-generator", name: "Favicon Generator", description: "Create favicons from images", icon: Image, type: "client", category: "Icons" },
+  { id: "qr-code-generator", name: "QR Code Generator", description: "Create customizable QR codes", icon: QrCode, type: "client", category: "Codes" },
+  { id: "watermark-generator", name: "Watermark Generator", description: "Add text or image watermarks", icon: Image, type: "client", category: "Editing" },
+  
+  // Social Media Graphics
+  { id: "social-image-maker", name: "Social Media Image Maker", description: "Create properly sized social graphics", icon: Image, type: "client", category: "Social" },
+  { id: "meme-generator", name: "Meme Generator", description: "Create memes with custom text", icon: Image, type: "client", category: "Creative" },
 ];
 
 // ============================================
-// VIDEO & AUDIO HUB - 1000+ Tools
+// VIDEO & AUDIO HUB - Curated Essential Tools
 // ============================================
-const videoAudioBaseTools = [
-  // Video Converters
-  "Video to MP3", "Video to GIF", "Video Trimmer", "Video Merger",
-  "Video Splitter", "Video Compressor", "Video Format Converter",
-  "MP4 Converter", "AVI Converter", "MOV Converter", "WebM Converter",
-  "MKV Converter", "FLV Converter", "WMV Converter", "3GP Converter",
-  
-  // Video Editing
-  "Video Resolution Changer", "Video Aspect Ratio", "Video FPS Converter",
-  "Video Speed Changer", "Slow Motion Maker", "Time Lapse Maker",
-  "Video Reverser", "Video Looper", "Boomerang Maker",
-  "Video Cropper", "Video Rotator", "Video Flipper",
-  "Add Music to Video", "Remove Audio from Video", "Video Volume Changer",
-  "Add Subtitles", "Subtitle Generator", "SRT Creator",
-  "Video Thumbnail Extractor", "Video Frame Extractor", "Video to Images",
-  "Add Text to Video", "Video Watermark", "Video Overlay",
-  
-  // Video Effects
-  "Video Background Remover", "Green Screen Tool", "Chroma Key",
-  "Video Stabilizer", "Video Enhancer", "Video Upscaler",
-  "Video Filter Adder", "Video Color Grading", "LUT Applier",
-  "Video Blur", "Video Brightness", "Video Contrast",
-  
-  // Recording
-  "Screen Recorder", "Webcam Recorder", "Audio Recorder",
-  "Podcast Recorder", "Voice Recorder", "Sound Recorder",
-  "Video Recorder", "Game Recorder", "Meeting Recorder",
-  
-  // Audio Converters
-  "Audio to Text", "Audio Trimmer", "Audio Merger",
-  "Audio Splitter", "Audio Compressor", "Audio Normalizer",
-  "Audio Format Converter", "MP3 Converter", "WAV Converter",
-  "FLAC Converter", "OGG Converter", "AAC Converter",
-  "M4A Converter", "WMA Converter", "AIFF Converter",
-  
-  // Audio Editing
-  "Audio Speed Changer", "Pitch Shifter", "Tempo Changer",
-  "Noise Remover", "Background Noise Reducer", "Audio Enhancer",
-  "Audio Equalizer", "Bass Booster", "Treble Booster",
-  "Fade In Out Maker", "Audio Reverser", "Audio Looper",
-  "Audio Volume Changer", "Audio Mixer", "Multi Track Editor",
-  
-  // Audio Effects
-  "Echo Effect", "Reverb Effect", "Chorus Effect",
-  "Distortion Effect", "Delay Effect", "Flanger Effect",
-  "Phaser Effect", "Tremolo Effect", "Vibrato Effect",
-  
-  // Sound Creation
-  "Ringtone Maker", "Notification Sound", "Alarm Tone Creator",
-  "BPM Counter", "Key Detector", "Metronome",
-  "Tuner Tool", "Chord Finder", "Scale Generator",
-  "Beat Maker", "Drum Pattern Generator", "Melody Generator",
-  
-  // Voice
-  "Voice Changer", "Autotune Tool", "Vocal Remover",
-  "Karaoke Maker", "Instrumental Separator", "Stem Splitter",
-  "Text to Speech", "Speech to Text", "Voice Cloner Info",
-  
-  // Visualization
-  "Audio Spectrum Visualizer", "Waveform Generator", "Audio Graph Maker",
-  "Music Visualizer", "Sound Wave Art", "Audio Waveform Image",
-];
-
 const videoAudioTools: SubTool[] = [
   // AI Tools
-  { id: "ai-voice-gen", name: "AI Voice Generator", description: "Generate voiceovers with AI", icon: Mic, type: "ai", category: "AI Audio" },
-  { id: "ai-music-gen", name: "AI Music Generator", description: "Create music with AI", icon: Music, type: "ai", category: "AI Audio" },
-  { id: "ai-transcription", name: "AI Transcription", description: "Transcribe audio with AI", icon: FileText, type: "ai", category: "AI Audio" },
-  ...generateMassiveClientTools("video", "Video Audio", Video, videoAudioBaseTools),
+  { id: "ai-voice-gen", name: "AI Voice Generator", description: "Generate realistic voiceovers", icon: Mic, type: "ai", category: "AI Audio" },
+  { id: "ai-transcription", name: "AI Transcription", description: "Transcribe audio to text with AI", icon: FileText, type: "ai", category: "AI Audio" },
+  
+  // Video Converters
+  { id: "video-to-mp3", name: "Video to MP3", description: "Extract audio from video files", icon: Music, type: "client", category: "Conversion" },
+  { id: "video-to-gif", name: "Video to GIF", description: "Convert videos to animated GIFs", icon: Video, type: "client", category: "Conversion" },
+  { id: "video-compressor", name: "Video Compressor", description: "Compress videos while keeping quality", icon: Minimize, type: "client", category: "Editing" },
+  
+  // Video Editing
+  { id: "video-trimmer", name: "Video Trimmer", description: "Cut and trim video clips", icon: Scissors, type: "client", category: "Editing" },
+  { id: "video-merger", name: "Video Merger", description: "Merge multiple videos into one", icon: Video, type: "client", category: "Editing" },
+  { id: "subtitle-generator", name: "Subtitle Generator", description: "Add subtitles to videos", icon: FileText, type: "client", category: "Editing" },
+  
+  // Audio Tools
+  { id: "audio-converter", name: "Audio Format Converter", description: "Convert between MP3, WAV, FLAC, AAC", icon: Music, type: "client", category: "Audio" },
+  { id: "audio-trimmer", name: "Audio Trimmer", description: "Cut and trim audio files", icon: Scissors, type: "client", category: "Audio" },
+  { id: "noise-remover", name: "Background Noise Remover", description: "Remove noise from audio", icon: Volume2, type: "client", category: "Audio" },
+  
+  // Utilities
+  { id: "ringtone-maker", name: "Ringtone Maker", description: "Create custom ringtones", icon: Phone, type: "client", category: "Utilities" },
+  { id: "bpm-counter", name: "BPM Counter", description: "Detect tempo of audio tracks", icon: Music, type: "client", category: "Utilities" },
 ];
 
 // ============================================
-// DOCUMENTS HUB - 1000+ Tools
+// DOCUMENTS HUB - Curated Essential Tools
 // ============================================
-const documentsBaseTools = [
-  // PDF Tools
-  "PDF to Word", "Word to PDF", "PDF to Excel", "Excel to PDF",
-  "PDF to PowerPoint", "PowerPoint to PDF", "PDF Compressor", "PDF Merger",
-  "PDF Splitter", "PDF Page Extractor", "PDF Rotator", "PDF Page Remover",
-  "PDF Password Protector", "PDF Password Remover", "PDF Encryptor",
-  "PDF to Image", "Image to PDF", "PDF to Text", "Text to PDF",
-  "PDF Editor", "PDF Annotator", "PDF Form Filler",
-  "PDF Signature", "PDF Watermark", "PDF Header Footer",
-  "PDF Page Numbers", "PDF Bookmarks", "PDF Table of Contents",
-  "PDF Viewer", "PDF Reader", "PDF Print Helper",
-  
-  // Document Converters
-  "DOCX to PDF", "PDF to DOCX", "ODT Converter", "RTF Converter",
-  "TXT to PDF", "PDF to TXT", "HTML to PDF", "PDF to HTML",
-  "Markdown to PDF", "PDF to Markdown", "LaTeX Converter",
-  "EPUB Converter", "MOBI Converter", "eBook Converter",
-  "EPUB to PDF", "PDF to EPUB", "Kindle Converter",
-  
-  // Spreadsheet Tools
-  "Excel Merger", "Excel Splitter", "CSV to Excel", "Excel to CSV",
-  "JSON to Excel", "Excel to JSON", "XML to Excel", "Excel to XML",
-  "Excel Viewer", "Spreadsheet Formatter", "Data Cleaner",
-  "Duplicate Remover", "Excel Formula Helper", "Pivot Table Helper",
-  "VLOOKUP Helper", "Excel Charts", "Spreadsheet Comparison",
-  
-  // Presentation Tools
-  "PowerPoint Compressor", "PPT to PDF", "PPT to Images",
-  "Slide Extractor", "Presentation Merger", "Slide Templates",
-  "PPT to Video", "Slide Sorter", "Presentation Viewer",
-  
-  // Business Documents
-  "Invoice Generator", "Receipt Generator", "Quote Generator",
-  "Contract Templates", "Agreement Templates", "NDA Generator",
-  "Proposal Generator", "Purchase Order", "Delivery Note",
-  "Packing Slip", "Bill of Lading", "Commercial Invoice",
-  
-  // Personal Documents
-  "Resume Builder", "CV Templates", "Cover Letter Generator",
-  "Reference Letter", "Recommendation Letter", "Thank You Letter",
-  "Resignation Letter", "Offer Letter", "Employment Contract",
-  
-  // Letters & Correspondence
-  "Business Letter Templates", "Memo Generator", "Report Templates",
-  "Meeting Minutes", "Agenda Generator", "Notes Templates",
-  "Email Templates", "Formal Letter", "Informal Letter",
-  
-  // Certificates & Awards
-  "Certificate Generator", "Diploma Templates", "Award Generator",
-  "Achievement Certificate", "Completion Certificate", "Participation Certificate",
-  "ID Card Generator", "Badge Maker", "Name Tag Generator",
-  
-  // Labels & Envelopes
-  "Envelope Generator", "Label Maker", "Address Labels",
-  "Shipping Labels", "Barcode Labels", "Product Labels",
-  "Return Labels", "Mailing Labels", "CD Labels",
-  
-  // Planning Documents
-  "Calendar Generator", "Planner Templates", "Schedule Maker",
-  "Timetable Generator", "Gantt Chart", "Timeline Creator",
-  "Project Plan", "Roadmap Generator", "Milestone Tracker",
-  
-  // Tracking Documents
-  "Checklist Generator", "To-Do List", "Task Tracker",
-  "Habit Tracker", "Goal Tracker", "Progress Tracker",
-  "Expense Report", "Budget Templates", "Financial Report",
-  "Timesheet Templates", "Attendance Tracker", "Work Log",
-  
-  // Forms & Surveys
-  "Form Builder", "Survey Creator", "Questionnaire Maker",
-  "Feedback Form", "Registration Form", "Application Form",
-  "Order Form", "Contact Form", "Consent Form",
-  
-  // Diagrams
-  "Mind Map Maker", "Flowchart Builder", "Org Chart Generator",
-  "Process Diagram", "Network Diagram", "ER Diagram",
-  "UML Diagram", "Sequence Diagram", "Class Diagram",
-];
-
 const documentsTools: SubTool[] = [
   // AI Tools
   { id: "ai-resume-writer", name: "AI Resume Writer", description: "Generate professional resumes with AI", icon: FileText, type: "ai", category: "AI Documents" },
-  { id: "ai-cover-letter", name: "AI Cover Letter Writer", description: "Write cover letters with AI", icon: Mail, type: "ai", category: "AI Documents" },
-  { id: "ai-contract-generator", name: "AI Contract Generator", description: "Generate contracts with AI", icon: FileUp, type: "ai", category: "AI Documents" },
-  ...generateMassiveClientTools("docs", "Documents", FileText, documentsBaseTools),
+  { id: "ai-cover-letter", name: "AI Cover Letter Writer", description: "Write personalized cover letters", icon: Mail, type: "ai", category: "AI Documents" },
+  
+  // PDF Tools
+  { id: "pdf-converter", name: "PDF Converter", description: "Convert to/from PDF (Word, Excel, Images)", icon: FileText, type: "client", category: "PDF" },
+  { id: "pdf-merger", name: "PDF Merger", description: "Combine multiple PDFs into one", icon: FileText, type: "client", category: "PDF" },
+  { id: "pdf-splitter", name: "PDF Splitter", description: "Split PDFs into separate pages", icon: Scissors, type: "client", category: "PDF" },
+  { id: "pdf-compressor", name: "PDF Compressor", description: "Reduce PDF file size", icon: Minimize, type: "client", category: "PDF" },
+  
+  // Document Generators
+  { id: "invoice-generator", name: "Invoice Generator", description: "Create professional invoices", icon: DollarSign, type: "client", category: "Business" },
+  { id: "contract-templates", name: "Contract Templates", description: "Generate legal contract templates", icon: FileText, type: "client", category: "Business" },
+  { id: "certificate-generator", name: "Certificate Generator", description: "Create custom certificates", icon: Star, type: "client", category: "Business" },
+  
+  // Planning Tools
+  { id: "calendar-generator", name: "Calendar Generator", description: "Create printable calendars", icon: Calendar, type: "client", category: "Planning" },
+  { id: "checklist-maker", name: "Checklist Maker", description: "Build and print checklists", icon: List, type: "client", category: "Planning" },
+  
+  // Diagrams
+  { id: "flowchart-builder", name: "Flowchart Builder", description: "Create flowcharts and diagrams", icon: Share2, type: "client", category: "Diagrams" },
+  { id: "mind-map-maker", name: "Mind Map Maker", description: "Build visual mind maps", icon: Share2, type: "client", category: "Diagrams" },
 ];
 
 // ============================================
-// CALCULATORS HUB - 1000+ Tools
+// CALCULATORS HUB - Curated Essential Tools
 // ============================================
-const calculatorsBaseTools = [
-  // Basic Math
-  "Percentage Calculator", "Percentage Change", "Percentage Difference",
-  "Fraction Calculator", "Decimal to Fraction", "Fraction to Decimal",
-  "Basic Calculator", "Scientific Calculator", "Graphing Calculator",
-  "Matrix Calculator", "Quadratic Solver", "Polynomial Solver",
-  "Equation Solver", "Algebra Calculator", "Geometry Calculator",
-  "Trigonometry Calculator", "Calculus Calculator", "Statistics Calculator",
-  
-  // Unit Converters
-  "Unit Converter", "Length Converter", "Weight Converter",
-  "Temperature Converter", "Volume Converter", "Area Converter",
-  "Speed Converter", "Time Converter", "Data Size Converter",
-  "Pressure Converter", "Energy Converter", "Power Converter",
-  "Angle Converter", "Force Converter", "Frequency Converter",
+const calculatorsTools: SubTool[] = [
+  // Math
+  { id: "percentage-calculator", name: "Percentage Calculator", description: "Calculate percentages and changes", icon: Calculator, type: "client", category: "Math" },
+  { id: "scientific-calculator", name: "Scientific Calculator", description: "Advanced mathematical calculations", icon: Calculator, type: "client", category: "Math" },
+  { id: "unit-converter", name: "Unit Converter", description: "Convert between any units", icon: RefreshCw, type: "client", category: "Conversion" },
   
   // Financial
-  "Currency Converter", "Cryptocurrency Calculator", "Exchange Rate",
-  "Loan Calculator", "Mortgage Calculator", "EMI Calculator",
-  "Interest Calculator", "Compound Interest", "Simple Interest",
-  "Investment Calculator", "ROI Calculator", "CAGR Calculator",
-  "Retirement Calculator", "Savings Calculator", "Goal Calculator",
-  "Tax Calculator", "Income Tax", "Sales Tax Calculator",
-  "Tip Calculator", "Bill Splitter", "Discount Calculator",
-  "Margin Calculator", "Markup Calculator", "Profit Calculator",
-  "Break Even Calculator", "Payroll Calculator", "Salary Calculator",
-  "Hourly to Salary", "Overtime Calculator", "Raise Calculator",
-  "Net Worth Calculator", "Debt Payoff", "Credit Card Payoff",
-  "401k Calculator", "IRA Calculator", "Stock Return Calculator",
-  "Dividend Calculator", "Bond Calculator", "Options Calculator",
-  "Forex Pip Calculator", "Lot Size Calculator", "Position Size",
+  { id: "currency-converter", name: "Currency Converter", description: "Convert between world currencies", icon: DollarSign, type: "client", category: "Finance" },
+  { id: "loan-calculator", name: "Loan Calculator", description: "Calculate loan payments and interest", icon: DollarSign, type: "client", category: "Finance" },
+  { id: "investment-calculator", name: "Investment Calculator", description: "Calculate ROI and compound interest", icon: TrendingUp, type: "client", category: "Finance" },
+  { id: "tax-calculator", name: "Tax Calculator", description: "Estimate income and sales tax", icon: DollarSign, type: "client", category: "Finance" },
+  { id: "tip-calculator", name: "Tip Calculator", description: "Calculate tips and split bills", icon: DollarSign, type: "client", category: "Finance" },
   
-  // Health & Fitness
-  "BMI Calculator", "BMR Calculator", "TDEE Calculator",
-  "Calorie Calculator", "Macro Calculator", "Protein Calculator",
-  "Body Fat Calculator", "Ideal Weight", "Water Intake",
-  "Heart Rate Zones", "Max Heart Rate", "Target Heart Rate",
-  "Pace Calculator", "Running Calculator", "Cycling Calculator",
-  "Swim Pace Calculator", "Triathlon Calculator", "Fitness Age",
+  // Health
+  { id: "bmi-calculator", name: "BMI Calculator", description: "Calculate body mass index", icon: Heart, type: "client", category: "Health" },
+  { id: "calorie-calculator", name: "Calorie Calculator", description: "Calculate daily calorie needs", icon: Heart, type: "client", category: "Health" },
+  { id: "pace-calculator", name: "Pace Calculator", description: "Calculate running/cycling pace", icon: Clock, type: "client", category: "Health" },
   
   // Date & Time
-  "Age Calculator", "Date Calculator", "Days Between Dates",
-  "Time Zone Converter", "Epoch Converter", "Unix Timestamp",
-  "Weeks Calculator", "Months Calculator", "Years Calculator",
-  "Work Days Calculator", "Business Days", "Holiday Calculator",
-  "Birthday Calculator", "Anniversary Calculator", "Countdown",
-  "Pregnancy Due Date", "Ovulation Calculator", "Period Calculator",
-  "Sleep Calculator", "Wake Up Time", "Sleep Cycle",
-  
-  // Education
-  "GPA Calculator", "Grade Calculator", "CGPA Calculator",
-  "Test Score Calculator", "Weighted Average", "Final Grade",
-  "SAT Score", "ACT Score", "GRE Score Calculator",
-  "Percentile Calculator", "Rank Calculator", "Grading Scale",
-  
-  // Home & DIY
-  "Rent vs Buy", "Square Footage", "Paint Calculator",
-  "Flooring Calculator", "Tile Calculator", "Wallpaper Calculator",
-  "Concrete Calculator", "Brick Calculator", "Lumber Calculator",
-  "Roofing Calculator", "Insulation Calculator", "Drywall Calculator",
-  "Pool Volume", "Aquarium Calculator", "Garden Planner",
-  
-  // Vehicle
-  "Fuel Cost Calculator", "Gas Mileage", "MPG Calculator",
-  "Car Loan Calculator", "Lease Calculator", "Car Payment",
-  "Depreciation Calculator", "Total Cost of Ownership", "Car Compare",
-  
-  // Utilities
-  "Electricity Cost", "Power Consumption", "Watt Calculator",
-  "Solar Panel Calculator", "Energy Savings", "Carbon Footprint",
-  "Water Usage", "Natural Gas", "Utility Bill",
-  
-  // Cooking
-  "Cooking Converter", "Recipe Scaler", "Ingredient Converter",
-  "Baking Calculator", "Yeast Calculator", "Dough Calculator",
+  { id: "age-calculator", name: "Age Calculator", description: "Calculate exact age in years/months/days", icon: Calendar, type: "client", category: "Date" },
+  { id: "date-difference", name: "Date Difference Calculator", description: "Calculate days between dates", icon: Calendar, type: "client", category: "Date" },
+  { id: "time-zone-converter", name: "Time Zone Converter", description: "Convert times between zones", icon: Globe, type: "client", category: "Date" },
   
   // Random
-  "Random Number Generator", "Random Name Picker", "Dice Roller",
-  "Coin Flipper", "Lottery Generator", "Password Generator",
-  "Probability Calculator", "Odds Calculator", "Permutation Calculator",
-  "Combination Calculator", "Factorial Calculator", "Fibonacci Calculator",
-  "Prime Number Checker", "GCD Calculator", "LCM Calculator",
-  "Standard Deviation", "Mean Calculator", "Median Calculator",
-  "Mode Calculator", "Variance Calculator", "Correlation Calculator",
-];
-
-const calculatorsTools: SubTool[] = [
-  ...generateMassiveClientTools("calc", "Calculators", Calculator, calculatorsBaseTools),
+  { id: "random-generator", name: "Random Generator", description: "Generate random numbers and picks", icon: Zap, type: "client", category: "Random" },
+  { id: "password-generator", name: "Password Generator", description: "Create strong secure passwords", icon: Lock, type: "client", category: "Random" },
 ];
 
 // ============================================
-// DEVELOPER TOOLS HUB - 1000+ Tools
+// DEVELOPER TOOLS HUB - Curated Essential Tools
 // ============================================
-const devToolsBaseTools = [
-  // JSON Tools
-  "JSON Formatter", "JSON Validator", "JSON Minifier",
-  "JSON to XML", "XML to JSON", "JSON to YAML",
-  "YAML to JSON", "JSON to CSV", "CSV to JSON",
-  "JSON Viewer", "JSON Editor", "JSON Path Finder",
-  "JSON Diff", "JSON Merge", "JSON Query",
+const devToolsTools: SubTool[] = [
+  // JSON/Data
+  { id: "json-formatter", name: "JSON Formatter", description: "Format, validate and beautify JSON", icon: FileJson, type: "client", category: "Data" },
+  { id: "json-to-csv", name: "JSON/CSV Converter", description: "Convert between JSON, CSV, XML", icon: Table, type: "client", category: "Data" },
+  { id: "yaml-json", name: "YAML/JSON Converter", description: "Convert between YAML and JSON", icon: FileCode, type: "client", category: "Data" },
   
-  // XML Tools
-  "XML Formatter", "XML Validator", "XML Minifier",
-  "XML to HTML", "HTML to XML", "XML Viewer",
-  "XPath Tester", "XSLT Transformer", "XSD Validator",
+  // Code Formatting
+  { id: "html-formatter", name: "HTML Formatter", description: "Format and minify HTML", icon: Code, type: "client", category: "Formatting" },
+  { id: "css-formatter", name: "CSS Formatter", description: "Format, minify CSS and generate prefixes", icon: Palette, type: "client", category: "Formatting" },
+  { id: "js-formatter", name: "JavaScript Formatter", description: "Format and minify JavaScript", icon: FileCode, type: "client", category: "Formatting" },
+  { id: "sql-formatter", name: "SQL Formatter", description: "Format and beautify SQL queries", icon: Database, type: "client", category: "Formatting" },
   
-  // HTML Tools
-  "HTML Formatter", "HTML Minifier", "HTML Validator",
-  "HTML to Markdown", "Markdown to HTML", "HTML Preview",
-  "HTML Entities Encoder", "HTML Entities Decoder", "HTML Cleaner",
-  "HTML Table Generator", "HTML List Generator", "HTML Form Builder",
+  // Regex & Testing
+  { id: "regex-tester", name: "Regex Tester", description: "Test and debug regular expressions", icon: Code, type: "client", category: "Testing" },
+  { id: "diff-checker", name: "Diff Checker", description: "Compare and diff text/code", icon: Code, type: "client", category: "Testing" },
   
-  // CSS Tools
-  "CSS Formatter", "CSS Minifier", "CSS Validator",
-  "SCSS to CSS", "LESS to CSS", "CSS Prefix Generator",
-  "CSS Gradient Generator", "CSS Shadow Generator", "CSS Border Radius",
-  "CSS Grid Generator", "CSS Flexbox Generator", "CSS Animation Generator",
-  "CSS Unit Converter", "PX to REM", "REM to PX",
+  // Security
+  { id: "jwt-decoder", name: "JWT Decoder", description: "Decode and verify JWT tokens", icon: Lock, type: "client", category: "Security" },
+  { id: "hash-generator", name: "Hash Generator", description: "Generate MD5, SHA256, SHA512 hashes", icon: Lock, type: "client", category: "Security" },
+  { id: "uuid-generator", name: "UUID Generator", description: "Generate unique identifiers", icon: Key, type: "client", category: "Generators" },
   
-  // JavaScript Tools
-  "JavaScript Formatter", "JavaScript Minifier", "JavaScript Validator",
-  "TypeScript Compiler", "ES6 to ES5", "JSX Converter",
-  "JavaScript Obfuscator", "JavaScript Beautifier", "JavaScript Linter",
-  
-  // SQL Tools
-  "SQL Formatter", "SQL Validator", "SQL Minifier",
-  "SQL to NoSQL", "CSV to SQL", "SQL Generator",
-  "SQL Escape", "SQL Unescape", "SQL Query Builder",
-  
-  // Regex Tools
-  "Regex Tester", "Regex Generator", "Regex Debugger",
-  "Regex Cheat Sheet", "Regex Visualizer", "Regex Replacer",
-  
-  // Time Tools
-  "Cron Expression Generator", "Cron Parser", "Cron Validator",
-  "Timestamp Converter", "Date Parser", "ISO 8601 Converter",
-  "UTC Converter", "Epoch Converter", "Time Zone Converter",
-  
-  // Security Tools
-  "JWT Decoder", "JWT Generator", "JWT Validator",
-  "Hash Generator", "MD5 Generator", "SHA256 Generator",
-  "SHA1 Generator", "SHA512 Generator", "HMAC Generator",
-  "Base64 Encoder", "Base64 Decoder", "URL Encoder",
-  "URL Decoder", "HTML Entity Encoder", "Unicode Converter",
-  
-  // ID Generators
-  "UUID Generator", "GUID Generator", "ULID Generator",
-  "Snowflake ID", "CUID Generator", "NanoID Generator",
-  
-  // Network Tools
-  "IP Address Lookup", "IP to Binary", "Subnet Calculator",
-  "CIDR Calculator", "DNS Lookup", "WHOIS Lookup",
-  "Port Checker", "Ping Tool", "Traceroute",
-  "HTTP Status Codes", "MIME Types", "HTTP Headers",
-  "User Agent Parser", "Browser Detector", "Device Detector",
-  
-  // API Tools
-  "Lorem Ipsum Generator", "Fake Data Generator", "Mock API",
-  "API Response Formatter", "Webhook Tester", "cURL Converter",
-  "GraphQL Formatter", "OpenAPI Viewer", "Swagger Editor",
-  "Postman to cURL", "Insomnia Converter", "API Documentation",
-  
-  // Comparison Tools
-  "Diff Checker", "Code Compare", "Merge Tool",
-  "Text Diff", "File Diff", "JSON Diff",
+  // Network
+  { id: "ip-lookup", name: "IP Address Lookup", description: "Get IP info, location and ISP", icon: Globe, type: "client", category: "Network" },
+  { id: "dns-lookup", name: "DNS Lookup", description: "Query DNS records for domains", icon: Globe, type: "client", category: "Network" },
+  { id: "http-status", name: "HTTP Status Codes", description: "Reference for HTTP status codes", icon: Code, type: "client", category: "Network" },
   
   // Generators
-  "Syntax Highlighter", "Code Snippet", "Gist Creator",
-  "ASCII Art Generator", "Box Drawing", "Table Generator",
-  "Markdown Table", "CSV Table Generator", "HTML Table Generator",
-  
-  // Config Generators
-  ".htaccess Generator", "Robots.txt Generator", "Sitemap Generator",
-  "Favicon Generator", "Manifest Generator", "Meta Tag Generator",
-  "CSP Generator", "CORS Header Generator", "Security Headers",
-  
-  // Git Tools
-  "Git Commands", "Git Ignore Generator", "Git README Generator",
-  "Git Commit Message", "Git Branch Name", "Semantic Version",
-  "Changelog Generator", "Release Notes", "Git Diff",
-  
-  // Package Tools
-  "NPM Package Analyzer", "Package.json Generator", "Dependency Checker",
-  "Bundle Size Checker", "License Checker", "Vulnerability Scanner",
-  
-  // DevOps Tools
-  "Docker Compose", "Kubernetes YAML", "Terraform Helper",
-  "Environment Variable", "Config File Generator", ".env Generator",
-  "CI/CD Pipeline", "GitHub Actions", "GitLab CI",
-  
-  // Code Tools
-  "Code Obfuscator", "Code Beautifier", "Minifier Tool",
-  "Code Formatter", "Linter", "Syntax Checker",
-];
-
-const devToolsTools: SubTool[] = [
-  ...generateMassiveClientTools("dev", "Developer Tools", Code, devToolsBaseTools),
+  { id: "cron-generator", name: "Cron Expression Generator", description: "Build and explain cron jobs", icon: Clock, type: "client", category: "Generators" },
+  { id: "gitignore-generator", name: ".gitignore Generator", description: "Generate gitignore files", icon: FileCode, type: "client", category: "Generators" },
 ];
 
 // ============================================
-// SECURITY HUB - 1000+ Tools
+// SECURITY HUB - Curated Essential Tools
 // ============================================
-const securityBaseTools = [
+const securityTools: SubTool[] = [
   // Password Tools
-  "Password Generator", "Strong Password Maker", "Passphrase Generator",
-  "Password Strength Checker", "Password Entropy Calculator", "Memorable Password",
-  "PIN Generator", "Random Password", "Secure Password Tips",
-  "Password Manager Info", "Password Vault Info", "Master Password",
+  { id: "password-generator-secure", name: "Secure Password Generator", description: "Generate strong, random passwords", icon: Lock, type: "client", category: "Passwords" },
+  { id: "password-strength", name: "Password Strength Checker", description: "Test password security level", icon: ShieldCheck, type: "client", category: "Passwords" },
   
-  // Hash Tools
-  "Hash Generator", "MD5 Hash", "SHA256 Hash",
-  "SHA1 Hash", "SHA512 Hash", "HMAC Generator",
-  "Hash Identifier", "Hash Comparison", "File Hash Checker",
-  "Checksum Calculator", "CRC32 Generator", "RIPEMD Generator",
-  
-  // Encryption Tools
-  "Encryption Tool", "AES Encryptor", "DES Encryptor",
-  "Blowfish Encryptor", "Triple DES", "RSA Helper",
-  "Symmetric Encryption", "Asymmetric Encryption", "Hybrid Encryption",
-  "File Encryptor Info", "Folder Encryptor Info", "Drive Encryptor Info",
-  
-  // Encoding Tools
-  "Base64 Encoder", "Base64 Decoder", "Base32 Encoder",
-  "URL Safe Base64", "Hex Encoder", "Hex Decoder",
-  "ROT13 Encoder", "Caesar Cipher", "Vigenere Cipher",
-  "Atbash Cipher", "XOR Cipher", "Substitution Cipher",
-  
-  // Steganography
-  "Steganography Tool", "Hidden Message Encoder", "Image Steganography",
-  "Audio Steganography", "Text Steganography", "Invisible Text",
-  "Whitespace Encoding", "Zero Width Characters", "Hidden Data Finder",
+  // Hash & Encryption
+  { id: "hash-tool", name: "Hash Generator & Checker", description: "Generate and verify file hashes", icon: Lock, type: "client", category: "Encryption" },
+  { id: "encryption-tool", name: "Text Encryption Tool", description: "Encrypt and decrypt text", icon: Key, type: "client", category: "Encryption" },
   
   // Token Generators
-  "UUID Generator", "GUID Generator", "Random Token Generator",
-  "API Key Generator", "Secret Key Generator", "License Key Generator",
-  "OTP Generator", "TOTP Generator", "HOTP Generator",
-  "2FA Code Generator", "Authenticator Helper", "Backup Codes",
+  { id: "api-key-generator", name: "API Key Generator", description: "Generate secure API keys", icon: Key, type: "client", category: "Tokens" },
+  { id: "otp-generator", name: "OTP Generator", description: "Generate one-time passwords", icon: Lock, type: "client", category: "Tokens" },
   
-  // QR Security
-  "QR Code Generator", "QR Code Reader", "Secure QR Code",
-  "Encrypted QR", "Password QR", "WiFi QR Generator",
-  "vCard QR", "URL QR", "QR Code Decoder",
+  // SSL & Certificates
+  { id: "ssl-checker", name: "SSL Certificate Checker", description: "Check SSL certificate validity", icon: ShieldCheck, type: "client", category: "Certificates" },
+  { id: "csr-generator", name: "CSR Generator", description: "Generate certificate signing requests", icon: FileText, type: "client", category: "Certificates" },
   
-  // Certificate Tools
-  "SSL Checker", "Certificate Decoder", "CSR Generator",
-  "Private Key Generator", "Public Key Extractor", "PEM Converter",
-  "PKCS12 Converter", "Certificate Chain", "Self Signed Certificate",
-  "Certificate Expiry", "SSL Validity", "TLS Checker",
-  
-  // JWT Tools
-  "JWT Decoder", "JWT Generator", "JWT Validator",
-  "JWT Debugger", "JWT Claims Viewer", "JWT Signature Verifier",
-  
-  // OAuth Tools
-  "OAuth Helper", "OAuth2 Token", "SAML Decoder",
-  "SAML Generator", "OpenID Helper", "OIDC Debugger",
-  
-  // Network Security
-  "IP Address Lookup", "IP Location", "IP Anonymizer Info",
-  "DNS Leak Test", "WebRTC Leak Test", "Browser Fingerprint",
-  "Device Fingerprint", "Canvas Fingerprint", "Audio Fingerprint",
-  
-  // Privacy Tools
-  "Privacy Checker", "Tracking Detector", "Cookie Analyzer",
-  "Third Party Tracker", "Analytics Detector", "Pixel Tracker Finder",
-  "Ad Tracker Info", "Browser Privacy", "Incognito Detector",
+  // Privacy
+  { id: "metadata-remover", name: "Image Metadata Remover", description: "Remove EXIF data from images", icon: Eye, type: "client", category: "Privacy" },
+  { id: "browser-fingerprint", name: "Browser Fingerprint Checker", description: "Check your browser fingerprint", icon: Fingerprint, type: "client", category: "Privacy" },
   
   // Security Headers
-  "HTTP Header Analyzer", "Security Header Checker", "CSP Generator",
-  "HSTS Checker", "X-Frame-Options", "Content-Type-Options",
-  "Referrer Policy", "Permissions Policy", "CORS Checker",
-  
-  // Vulnerability Info
-  "XSS Tester Info", "SQL Injection Info", "CSRF Info",
-  "Command Injection", "Path Traversal", "XXE Info",
-  "SSRF Info", "Open Redirect", "Clickjacking Checker",
-  
-  // Scanner Info
-  "Port Scanner Info", "Network Scanner Info", "Vulnerability Scanner Info",
-  "Web Scanner Info", "SSL Scanner", "Header Scanner",
-  
-  // Data Protection
-  "File Shredder Info", "Secure Delete Info", "Data Wiping Info",
-  "Metadata Remover", "EXIF Cleaner", "Document Sanitizer",
-  
-  // Communication Security
-  "Anonymous Email Info", "Disposable Email", "Temp Mail Info",
-  "Encrypted Email Info", "Secure Messaging Info", "E2E Encryption Info",
-  
-  // VPN & Proxy
-  "VPN Helper Info", "Proxy Helper Info", "TOR Info",
-  "SOCKS5 Info", "HTTP Proxy", "Proxy Checker",
-  
-  // Crypto
-  "Blockchain Explorer Info", "Wallet Address Validator", "Crypto Address Generator",
-  "Public Key Derivation", "Private Key Generator", "Mnemonic Generator",
-  
-  // Digital Signatures
-  "Digital Signature Helper", "Document Signing Info", "Code Signing Info",
-  "GPG Helper", "PGP Encryption Info", "Message Signing",
-  
-  // Malware Info
-  "Malware Scanner Info", "Virus Total Helper", "File Hash Checker",
-  "Safe Browsing Check", "Malicious URL Checker", "Phishing Detector",
+  { id: "security-headers", name: "Security Headers Checker", description: "Check website security headers", icon: Shield, type: "client", category: "Analysis" },
+  { id: "csp-generator", name: "CSP Generator", description: "Generate Content Security Policy", icon: Shield, type: "client", category: "Headers" },
   
   // Compliance
-  "Privacy Policy Generator", "Terms of Service Generator", "Cookie Policy Generator",
-  "GDPR Checker", "CCPA Helper", "HIPAA Info",
-  "SOC2 Checklist", "PCI DSS Info", "Security Audit Checklist",
-];
-
-const securityTools: SubTool[] = [
-  ...generateMassiveClientTools("security", "Security Tools", Lock, securityBaseTools),
+  { id: "privacy-policy-generator", name: "Privacy Policy Generator", description: "Generate privacy policy documents", icon: FileText, type: "client", category: "Compliance" },
+  { id: "terms-generator", name: "Terms of Service Generator", description: "Generate terms and conditions", icon: FileText, type: "client", category: "Compliance" },
 ];
 
 // ============================================
-// UTILITIES HUB - 1000+ Tools
+// UTILITIES HUB - Curated Essential Tools
 // ============================================
-const utilitiesBaseTools = [
-  // Time Tools
-  "World Clock", "Time Zone Converter", "Meeting Time Planner",
-  "Countdown Timer", "Stopwatch", "Alarm Clock",
-  "Pomodoro Timer", "Focus Timer", "Break Timer",
-  "Interval Timer", "Tabata Timer", "Meditation Timer",
-  
-  // Date Tools
-  "Calendar Generator", "Date Calculator", "Days Counter",
-  "Age Calculator", "Birthday Calculator", "Anniversary Calculator",
-  "Week Number Finder", "Day of Week", "Leap Year Checker",
-  "Date Difference", "Add Days", "Subtract Days",
-  "Work Days Calculator", "Business Days", "Holiday Finder",
-  
-  // Notes Tools
-  "Notepad Online", "Sticky Notes", "Quick Notes",
-  "Markdown Editor", "Rich Text Editor", "Plain Text Editor",
-  "Code Editor", "JSON Editor", "YAML Editor",
-  
-  // List Tools
-  "To-Do List", "Task Manager", "Checklist Maker",
-  "Shopping List", "Grocery List", "Packing List",
-  "Bucket List", "Wish List", "Reading List",
-  
-  // Tracking Tools
-  "Habit Tracker", "Goal Tracker", "Progress Tracker",
-  "Expense Tracker", "Budget Planner", "Money Manager",
-  "Time Tracker", "Project Tracker", "Milestone Tracker",
-  
-  // Converters
-  "Unit Converter", "Currency Converter", "Measurement Converter",
-  "Length Converter", "Weight Converter", "Volume Converter",
-  "Temperature Converter", "Speed Converter", "Area Converter",
-  
-  // QR & Barcodes
-  "QR Code Generator", "QR Code Reader", "Barcode Generator",
-  "Barcode Scanner", "WiFi QR", "vCard Generator",
-  "URL QR Code", "Text QR Code", "Email QR Code",
-  
-  // Link Tools
-  "URL Shortener Helper", "Link Expander", "Broken Link Checker",
-  "Link Validator", "URL Cleaner", "UTM Remover",
-  "Redirect Checker", "Link Preview", "Metadata Viewer",
-  
-  // Screenshot Tools
-  "Website Screenshot", "Webpage Capture", "Full Page Screenshot",
-  "Screenshot Editor", "Screenshot Annotator", "Screenshot to PDF",
-  
-  // Testing Tools
-  "Webcam Test", "Microphone Test", "Speaker Test",
-  "Keyboard Tester", "Mouse Tester", "Gamepad Tester",
-  "Touch Screen Test", "Display Test", "Dead Pixel Checker",
-  
-  // Network Info
-  "Internet Speed Test Info", "Ping Test Info", "Latency Checker",
-  "What Is My IP", "IP Location Finder", "ISP Detector",
-  "DNS Checker", "Port Checker", "Network Status",
-  
-  // Device Info
-  "Browser Info", "Device Info", "Screen Resolution",
-  "System Info", "Battery Status", "Memory Usage",
-  "GPU Info", "CPU Info", "Storage Info",
-  
-  // Emoji Tools
-  "Emoji Picker", "Emoji Keyboard", "Emoji Search",
-  "Emoji Copy Paste", "Emoji Combiner", "Emoji Art",
-  "Kaomoji Picker", "Emoticon Generator", "ASCII Emoji",
-  
-  // Symbol Tools
-  "Symbol Finder", "Special Characters", "Unicode Search",
-  "Math Symbols", "Currency Symbols", "Arrow Symbols",
-  "Star Symbols", "Heart Symbols", "Check Symbols",
-  
-  // Font Tools
-  "Font Finder", "Font Identifier", "Google Fonts Browser",
-  "Font Preview", "Font Comparison", "Font Pairing",
-  "Fancy Text Generator", "Font Converter", "Web Safe Fonts",
-  
-  // Color Tools
-  "Color Picker", "Color Palette", "Gradient Generator",
-  "Color Converter", "Color Mixer", "Random Color",
-  "Color Scheme", "Color Harmony", "Color Blindness Sim",
-  
-  // Random Tools
-  "Random Generator", "Number Generator", "Name Picker",
-  "Decision Maker", "Coin Flipper", "Dice Roller",
-  "Lottery Generator", "Raffle Picker", "Prize Wheel",
-  "Yes No Generator", "Random Quote", "Random Fact",
-  
-  // Drawing Tools
-  "Drawing Canvas", "Whiteboard", "Sketch Pad",
-  "Paint Tool", "Pixel Art Maker", "Doodle Pad",
-  
-  // Diagram Tools
-  "Mind Map Maker", "Flowchart Creator", "Diagram Builder",
-  "Org Chart Maker", "Tree Diagram", "Venn Diagram",
-  
-  // Education Tools
-  "Flashcard Maker", "Study Cards", "Quiz Creator",
-  "Vocabulary Builder", "Spelling Practice", "Math Practice",
-  
-  // Viewer Tools
-  "PDF Viewer", "Document Viewer", "Image Viewer",
-  "Text Viewer", "Code Viewer", "Markdown Viewer",
-  
-  // File Tools
-  "File Explorer Helper", "File Size Checker", "File Type Identifier",
-  "File Comparison", "Duplicate Finder", "File Renamer",
-  
-  // Archive Tools
-  "ZIP Extractor Info", "File Compressor Info", "Archive Manager Info",
-  "RAR Opener Info", "7Z Extractor", "TAR GZ Handler",
-  
-  // Transfer Tools
-  "Download Manager Info", "Upload Helper", "File Sharing Info",
-  "Transfer Speed Test", "FTP Helper", "SFTP Info",
-  
-  // Language Tools
-  "Translation Helper", "Dictionary", "Thesaurus",
-  "Spell Checker", "Grammar Checker", "Pronunciation Guide",
-  "Language Detector", "Transliteration", "Romanization",
-  
-  // Weather Tools
-  "Weather Widget Info", "Forecast Viewer", "Weather Converter",
-  "Temperature Converter", "Wind Chill Calculator", "Heat Index",
-  
-  // Games & Fun
-  "Word Scrambler", "Crossword Helper", "Anagram Solver",
-  "Word Search", "Sudoku Generator", "Puzzle Maker",
-  "Trivia Generator", "Riddle Maker", "Joke Generator",
-];
-
 const utilitiesTools: SubTool[] = [
-  ...generateMassiveClientTools("util", "Utilities", Clock, utilitiesBaseTools),
+  // Time Tools
+  { id: "world-clock", name: "World Clock", description: "View time across multiple zones", icon: Clock, type: "client", category: "Time" },
+  { id: "countdown-timer", name: "Countdown Timer", description: "Create countdown timers", icon: Clock, type: "client", category: "Time" },
+  { id: "pomodoro-timer", name: "Pomodoro Timer", description: "Focus timer for productivity", icon: Clock, type: "client", category: "Time" },
+  
+  // Notes & Lists
+  { id: "notepad", name: "Online Notepad", description: "Quick notes that save locally", icon: FileText, type: "client", category: "Notes" },
+  { id: "markdown-editor", name: "Markdown Editor", description: "Write and preview Markdown", icon: FileText, type: "client", category: "Notes" },
+  { id: "todo-list", name: "To-Do List", description: "Simple task management", icon: List, type: "client", category: "Lists" },
+  
+  // QR & Links
+  { id: "qr-reader", name: "QR Code Reader", description: "Scan and read QR codes", icon: QrCode, type: "client", category: "Codes" },
+  { id: "barcode-generator", name: "Barcode Generator", description: "Create various barcode types", icon: Barcode, type: "client", category: "Codes" },
+  { id: "url-shortener", name: "URL Shortener Helper", description: "Create shortened URLs", icon: Link, type: "client", category: "Links" },
+  
+  // Testing
+  { id: "webcam-test", name: "Webcam Test", description: "Test your webcam and microphone", icon: Camera, type: "client", category: "Testing" },
+  { id: "speed-test-info", name: "Internet Speed Test Info", description: "Test your connection speed", icon: Wifi, type: "client", category: "Testing" },
+  
+  // Emoji & Symbols
+  { id: "emoji-picker", name: "Emoji Picker", description: "Search and copy emojis", icon: Heart, type: "client", category: "Emoji" },
+  { id: "symbol-finder", name: "Special Characters", description: "Find and copy special symbols", icon: Type, type: "client", category: "Emoji" },
+  
+  // Fun
+  { id: "dice-roller", name: "Dice Roller", description: "Roll dice for games", icon: Circle, type: "client", category: "Fun" },
+  { id: "coin-flipper", name: "Coin Flipper", description: "Flip a coin for decisions", icon: Circle, type: "client", category: "Fun" },
 ];
 
 // ============================================
@@ -988,7 +348,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "ai-content",
     name: "AI Content Hub",
-    description: "1000+ AI-powered content creation tools",
+    description: "Essential AI writing and text tools",
     icon: MessageSquare,
     path: "/hub/ai-content",
     color: "from-purple-500 to-pink-500",
@@ -997,7 +357,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "social-media",
     name: "Social Media Hub",
-    description: "1000+ tools for TikTok, Instagram, YouTube & more",
+    description: "Tools for TikTok, Instagram, YouTube & more",
     icon: Video,
     path: "/hub/social-media",
     color: "from-pink-500 to-red-500",
@@ -1006,7 +366,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "seo-marketing",
     name: "SEO & Marketing Hub",
-    description: "1000+ SEO and digital marketing tools",
+    description: "SEO and digital marketing essentials",
     icon: Search,
     path: "/hub/seo-marketing",
     color: "from-green-500 to-teal-500",
@@ -1015,7 +375,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "image-design",
     name: "Image & Design Hub",
-    description: "1000+ image editing and design tools",
+    description: "Image editing and design tools",
     icon: Palette,
     path: "/hub/image-design",
     color: "from-orange-500 to-yellow-500",
@@ -1024,7 +384,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "video-audio",
     name: "Video & Audio Hub",
-    description: "1000+ video and audio conversion tools",
+    description: "Video and audio conversion tools",
     icon: Music,
     path: "/hub/video-audio",
     color: "from-red-500 to-pink-500",
@@ -1033,7 +393,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "documents",
     name: "Documents Hub",
-    description: "1000+ document and file conversion tools",
+    description: "Document and file conversion tools",
     icon: FileUp,
     path: "/hub/documents",
     color: "from-blue-500 to-indigo-500",
@@ -1042,7 +402,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "calculators",
     name: "Calculators Hub",
-    description: "1000+ calculators and converters",
+    description: "Calculators and converters",
     icon: Calculator,
     path: "/hub/calculators",
     color: "from-cyan-500 to-blue-500",
@@ -1051,7 +411,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "dev-tools",
     name: "Developer Tools Hub",
-    description: "1000+ tools for developers and coders",
+    description: "Essential tools for developers",
     icon: Code,
     path: "/hub/dev-tools",
     color: "from-gray-500 to-zinc-500",
@@ -1060,7 +420,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "security",
     name: "Security & Privacy Hub",
-    description: "1000+ security and privacy tools",
+    description: "Security and privacy tools",
     icon: Shield,
     path: "/hub/security",
     color: "from-emerald-500 to-green-500",
@@ -1069,7 +429,7 @@ export const toolHubs: ToolHub[] = [
   {
     id: "utilities",
     name: "Utilities Hub",
-    description: "1000+ everyday utility tools",
+    description: "Everyday utility tools",
     icon: Zap,
     path: "/hub/utilities",
     color: "from-yellow-500 to-orange-500",
