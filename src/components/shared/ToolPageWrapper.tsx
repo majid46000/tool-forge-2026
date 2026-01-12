@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { Breadcrumb } from "./Breadcrumb";
 import { RelatedTools } from "./RelatedTools";
-import { AdNativeBanner, AdRectangle } from "../ads";
 
 interface ToolPageWrapperProps {
   title: string;
@@ -62,12 +61,6 @@ export function ToolPageWrapper({ title, description, icon: Icon, children, hero
 
           {/* Related Tools - Internal Linking for SEO */}
           {currentPath && <RelatedTools currentPath={currentPath} />}
-
-          {/* Ads below tool content */}
-          <div className="mt-12">
-            <AdNativeBanner />
-            <AdRectangle />
-          </div>
         </div>
       </div>
     </div>

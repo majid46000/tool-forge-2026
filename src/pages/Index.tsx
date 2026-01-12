@@ -3,7 +3,6 @@ import { HubCard } from "@/components/shared/HubCard";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { FreeBanner } from "@/components/shared/FreeBanner";
 import { Button } from "@/components/ui/button";
-import { AdNativeBanner, AdRectangle } from "@/components/ads";
 import { toolHubs, getTotalTools, getAIToolCount, getClientToolCount } from "@/data/toolHubs";
 
 import {
@@ -260,11 +259,6 @@ const Index = () => {
                 <HubCard hub={hub} />
               </div>
             ))}
-          </div>
-          
-          <div className="mt-16">
-            <AdNativeBanner />
-            <AdRectangle />
           </div>
         </div>
       </section>
