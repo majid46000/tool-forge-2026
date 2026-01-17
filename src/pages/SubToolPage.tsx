@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ChevronLeft, Copy, Loader2, Sparkles, AlertCircle } from "lucide-react";
+import { ChevronLeft, Copy, Loader2, Sparkles, AlertCircle, CheckCircle, HelpCircle } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { FreeBanner } from "@/components/shared/FreeBanner";
@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { getHubById, getToolById } from "@/data/toolHubs";
 import { checkRateLimit, incrementUsage, getRemainingUses } from "@/lib/rateLimit";
 import { supabase } from "@/integrations/supabase/client";
+import { getToolDescription } from "@/data/toolDescriptions";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function SubToolPage() {
   const { hubId, toolId } = useParams<{ hubId: string; toolId: string }>();
@@ -100,22 +102,34 @@ export default function SubToolPage() {
     toast({ title: "Copied!", description: "Output copied to clipboard." });
   };
   
+  const toolDescription = getToolDescription(hubId!, toolId!);
+  
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": tool.name,
-    "description": tool.description,
+    "description": toolDescription?.shortDescription || tool.description,
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "url": `https://toolforge2026.com/hub/${hubId}/${toolId}`
+    "url": `https://toolforge2026.com/hub/${hubId}/${toolId}`,
+    ...(toolDescription?.faqs && {
+      "mainEntity": toolDescription.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    })
   };
   
   return (
     <Layout>
       <SEOHead
         title={`${tool.name} – Free Online Tool | ToolForge 2026`}
-        description={`${tool.description} 100% free, no signup required.`}
+        description={toolDescription?.shortDescription || `${tool.description} 100% free, no signup required.`}
         canonical={`/hub/${hubId}/${toolId}`}
         jsonLd={jsonLd}
       />
@@ -128,7 +142,7 @@ export default function SubToolPage() {
           Back to {hub.name}
         </Link>
         
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${hub.color}`}>
@@ -144,7 +158,7 @@ export default function SubToolPage() {
                   </span>
                 )}
               </div>
-              <p className="text-muted-foreground">{tool.description}</p>
+              <p className="text-muted-foreground">{toolDescription?.shortDescription || tool.description}</p>
             </div>
           </div>
           
@@ -212,22 +226,152 @@ export default function SubToolPage() {
             )}
           </div>
           
-          {/* SEO Content */}
-          <section className="mt-12 prose prose-sm max-w-none">
-            <h2 className="text-xl font-bold text-foreground mb-3">
-              About {tool.name}
-            </h2>
-            <p className="text-muted-foreground">
-              {tool.description} This tool is part of our {hub.name}, offering {hub.subTools.length}+ free tools 
-              for content creators, marketers, and developers. No signup required – just enter your data and get instant results.
-            </p>
-            <ul className="text-muted-foreground mt-4 space-y-1">
-              <li>✓ 100% free – no hidden costs</li>
-              <li>✓ No signup or login required</li>
-              <li>✓ Works on all devices</li>
-              <li>✓ Instant processing</li>
-              {isAI && <li>✓ AI-powered for better results</li>}
-            </ul>
+          {/* SEO Content Section */}
+          <section className="mt-16 space-y-12">
+            {/* About Section with Long Description */}
+            <div>
+              <h2 className="text-2xl font-bold text-foreground mb-6">
+                About {tool.name}
+              </h2>
+              {toolDescription?.longDescription ? (
+                <div className="prose prose-invert max-w-none">
+                  {toolDescription.longDescription.split('\n\n').map((paragraph, i) => (
+                    <p key={i} className="text-muted-foreground mb-4 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">
+                  {tool.description} This tool is part of our {hub.name}, offering {hub.subTools.length}+ free tools 
+                  for content creators, marketers, and developers. No signup required – just enter your data and get instant results.
+                </p>
+              )}
+            </div>
+            
+            {/* Features & Benefits Grid */}
+            {toolDescription && (toolDescription.features.length > 0 || toolDescription.benefits.length > 0) && (
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Features */}
+                {toolDescription.features.length > 0 && (
+                  <div className="glass-card p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-cyan-400" />
+                      Key Features
+                    </h3>
+                    <ul className="space-y-3">
+                      {toolDescription.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                          <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {/* Benefits */}
+                {toolDescription.benefits.length > 0 && (
+                  <div className="glass-card p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-emerald-400" />
+                      Benefits
+                    </h3>
+                    <ul className="space-y-3">
+                      {toolDescription.benefits.map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                          <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Use Cases */}
+            {toolDescription?.useCases && toolDescription.useCases.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6">Popular Use Cases</h3>
+                <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {toolDescription.useCases.map((useCase, i) => (
+                    <div key={i} className="glass-card p-4 text-center">
+                      <span className="text-muted-foreground text-sm">{useCase}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* FAQs Section */}
+            {toolDescription?.faqs && toolDescription.faqs.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <HelpCircle className="h-6 w-6 text-cyan-400" />
+                  Frequently Asked Questions
+                </h3>
+                <Accordion type="single" collapsible className="space-y-3">
+                  {toolDescription.faqs.map((faq, i) => (
+                    <AccordionItem key={i} value={`faq-${i}`} className="glass-card border-none rounded-xl overflow-hidden">
+                      <AccordionTrigger className="px-6 py-4 text-left text-foreground hover:no-underline hover:bg-white/5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="px-6 pb-4 text-muted-foreground">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            )}
+            
+            {/* Keywords Cloud */}
+            {toolDescription?.keywords && toolDescription.keywords.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6">Related Searches</h3>
+                <div className="flex flex-wrap gap-2">
+                  {toolDescription.keywords.slice(0, 10).map((keyword, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-muted-foreground">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Quick Facts */}
+            <div className="glass-card p-6">
+              <h3 className="text-lg font-bold text-foreground mb-4">Why Choose {tool.name}?</h3>
+              <ul className="grid sm:grid-cols-2 gap-3 text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  100% free – no hidden costs
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  No signup or login required
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  Works on all devices
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  Instant processing
+                </li>
+                {isAI && (
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-400" />
+                    AI-powered for better results
+                  </li>
+                )}
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400" />
+                  Privacy-focused – no data stored
+                </li>
+              </ul>
+            </div>
           </section>
         </div>
       </div>
